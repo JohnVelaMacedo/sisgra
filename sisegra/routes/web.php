@@ -12,9 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/registrar-graduado', 'GraduadoController@registrarGraduado')->name('graduado.registrar');
+Route::resource('/graduado', 'GraduadoController');
