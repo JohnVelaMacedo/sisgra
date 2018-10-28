@@ -14,10 +14,11 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    You are logged in! {{ auth()->user()->tipo }}
                 </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
+

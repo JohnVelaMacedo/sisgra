@@ -7,7 +7,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Registrar</div>
                     <div class="panel-body">
-                        <form method="POST" action="{{ route('graduado.store') }}" class="form-horizontal">
+                        <form method="POST" action="{{ route('logueo.store') }}" class="form-horizontal">
                             {{ csrf_field() }}
                             
                             <div class="form-row">
@@ -93,7 +93,7 @@
                                     <select class="form-control px-0" required name="estado_civil" id="estado_civil">
                                         <option value="">Elija una opción</option> 
                                         @foreach ($estado_civil as $e)
-                                            <option value="{{$e->id}}">{{ $e->descripcion }}</option>
+                                            <option value="{{ $e->id }}">{{ $e->descripcion }}</option>
                                         @endforeach
                                     </select>
                                 </div>

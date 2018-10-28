@@ -19,5 +19,15 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/registrar-graduado', 'GraduadoController@registrarGraduado')->name('graduado.registrar');
+// Graduado
 Route::resource('/graduado', 'GraduadoController');
+Route::get('/datos', 'GraduadoController@getDatos')->name('graduado.datos');
+
+// Admin
+Route::resource('/admin', 'AdminController');
+
+// Verificar el logueo
+Route::resource('/logueo', 'LogueoController');
+
+// Rutas alternas
+Route::get('{path}', 'HomeController@index')->where('path', '([A-z\d-\/_.]+)?');

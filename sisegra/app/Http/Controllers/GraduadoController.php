@@ -20,21 +20,54 @@ class GraduadoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function __construct()
     {
-        //
+        $this->middleware('auth');
     }
 
-    public function registrarGraduado()
+    public function index()
     {
-        $graduado = Graduado::all();
-        $pais = Pais::all();
-        $discapacidad = Discapacidad::all();
-        $escuela = EscuelaProfesional::all();
-        $facultad = Facultad::all();
-        $departamento = DepartamentoEstado::all();
-        $estado_civil = EstadoCivil::all(); 
-        return view('graduado.registrar', compact('pais', 'discapacidad', 'escuela', 'facultad', 'departamento', 'estado_civil'));
+        $user = \Auth::user();
+        $user = $user->id;
+
+        // Obteniendo Graduado
+        $graduado = Graduado::where('DNI', $user)->first();
+
+        // Obteniendo el tipo de discapacidad
+        $discapacidad = Discapacidad::where('id', $graduado->Discapacidad)->first();
+
+        // Obteniendo el tipo de Escuela
+        $escuela = EscuelaProfesional::where('idEscuela', $graduado->Escuela)->get();
+
+        // Obteniendo el tipo de Escuela
+        $facultad = Facultad::where('id', $graduado->Facultad)->get();
+
+        // Obteniendo el tipo de Escuela
+        $departamento = DepartamentoEstado::where('DepartamentoEstado', $graduado->EstadoDepartamento)->get();
+
+        // Obteniendo el tipo de Estado Civil
+        $estado_civil = EstadoCivil::where('id', $graduado->EstadoCivil)->get();
+
+        return view('graduado.index', compact('graduado', 'discapacidad', 'escuela', 'facultad', 'departamento', 'estado_civil'));
+    }
+
+    public function getDatos() {
+        $user = \Auth::user();
+        $user = $user->id;
+
+        $resultado = \DB::select("SELECT g.DNI, g.Nombre, g.Telefono, g.Correo, g.AnioNacimiento, g.Genero, p.Nombre as 'Pais', 
+                                de.Nombre AS 'Departamento', g.DistritoCiudad, g.Dirección, ec.descripcion AS 'Estado_Civil', 
+                                g.CantHijos, d.descripcion AS 'Discapacidad', f.Nombre AS 'Facultad', ep.Nombre AS 'Escuela_Profesional',
+                                g.Ingreso, g.egreso, g.AnioBachiller, g.AnioTitulo 
+                                FROM graduado g
+                                INNER JOIN pais p ON p.idPais = g.PaisResidencia
+                                INNER JOIN departamentoestado de ON de.DepartamentoEstado = g.EstadoDepartamento
+                                INNER JOIN estadocivil ec ON ec.id = g.EstadoCivil
+                                INNER JOIN discapacidad d ON d.id = g.Discapacidad
+                                INNER JOIN facultad f ON f.id = g.Facultad
+                                INNER JOIN escuelaprofesional ep ON ep.idEscuela = g.Escuela
+                                WHERE DNI = ?", [$user]);
+        return compact('resultado');
     }
 
     /**
@@ -55,51 +88,7 @@ class GraduadoController extends Controller
      */
     public function store(Request $request)
     {
-        // Creando Graduado
-        $graduado = new Graduado();
-        $graduado->DNI = $request->dni;
-        $graduado->Nombre = $request->nombre_completo;
-        $graduado->Telefono = $request->telefono;
-        $graduado->Correo = $request->correo;
-        $graduado->AnioNacimiento = $request->anio_nacimiento;
-        $graduado->Genero = $request->genero;
-        $graduado->PaisResidencia = $request->pais;
-        $graduado->EstadoDepartamento = $request->departamento;
-        $graduado->DistritoCiudad = $request->distrito;
-        $graduado->Dirección = $request->direccion;
-        $graduado->EstadoCivil = $request->estado_civil;
-        $graduado->CantHijos = $request->cantidad_hijos;
-        $graduado->Discapacidad = $request->discapacidad;
-        $graduado->Facultad = $request->facultad;
-        $graduado->Escuela = $request->escuela;
-        $graduado->Ingreso = $request->anio_ingreso;
-        $graduado->egreso = $request->anio_egreso;
-        $graduado->AnioBachiller = $request->anio_bachiller;
-        $graduado->AnioTitulo = $request->anio_titulo;
         
-        // Creando GradoGraduado
-        $grado_graduado = new GradoGraduado();
-        if ($request->anio_titulo) {
-            $grado_graduado->Grado = 2;
-        } else {
-            $grado_graduado->Grado = 1;
-        }
-        $grado_graduado->idGraduado = $request->dni;
-        $grado_graduado->anioGraduacion = $request->anio_bachiller;
-
-        // Creando User
-        $user = new User();
-        $user->id = $request->dni;
-        $user->user = $request->dni;
-        $user->password = bcrypt('Inicio'.$request->dni);
-        $user->tipo = 4;
-        $user->estado = 0;
-
-        $graduado->save();
-        $grado_graduado->save();
-        $user->save();
-        
-        return redirect('/');
     }
 
     /**

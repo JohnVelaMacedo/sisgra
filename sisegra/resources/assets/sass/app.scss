@@ -7,3 +7,19 @@
 
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+.form-row div { 
+  margin-bottom: 15px!important;
+}
+
+#btn-ingresar, #btn-registrar {
+    background-color: white !important;
+    color: #22d686;
+    border-color: #22d686;
+    transition: all .3s ease-in-out;
+  }
+  
+#btn-ingresar:hover, #btn-registrar:hover {
+    background-color: #22d686 !important;
+    color: white !important;
+}

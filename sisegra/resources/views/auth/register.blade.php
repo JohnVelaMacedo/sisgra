@@ -1,156 +1,168 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
-
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
-                        {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Nombre</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Registrar</div>
+                    <div class="panel-body">
+                        <form method="POST" action="{{ route('register') }}" class="form-horizontal">
+                            {{ csrf_field() }}
+                            
+                            <div class="form-row">
+                                <div class="col-md-7">
+                                    <label for="nombre_completo">Nombre Completo:</label>
+                                    <input type="text" name="nombre_completo" id="nombre_completo" 
+                                        placeholder="Ingrese su nombre completo" class="form-control" required autofocus 
+                                        onkeypress="return soloLetras(event)">
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="dni">DNI:</label>
+                                    <input type="text" name="dni" id="dni" placeholder="Ingrese su DNI" class="form-control" 
+                                        required onkeypress="return valida(event)" maxlength="8" minlength="8">
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('dni') ? ' has-error' : '' }}">
-                            <label for="dni" class="col-md-4 control-label">DNI:</label>
-
-                            <div class="col-md-6">
-                                <input id="dni" type="text" class="form-control" name="dni" value="{{ old('dni') }}" required autofocus
-                                    maxlength="8">
-
-                                @if ($errors->has('dni'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('dni') }}</strong>
-                                    </span>
-                                @endif
+                            <div class="form-row">
+                                <div class="col-md-7">
+                                    <label for="correo">Correo:</label>
+                                    <input type="email" name="correo" id="correo" placeholder="Ingrese su correo" class="form-control" 
+                                        required>
+                                </div>
+                                <div class="col-md-5 mt-4">
+                                    <label for="celular">Celular: </label>
+                                    <input type="text" name="telefono" id="telefono" placeholder="Ingrese su número de celular" 
+                                        class="form-control" required onkeypress="return valida(event)" maxlength="9">
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">Correo</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="anio_nacimiento" class="mb-0">Fecha de Nacimiento: </label>
+                                    <input type="date" name="anio_nacimiento" id="anio_nacimiento" 
+                                        class="form-control px-0" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="genero" class="mb-0">Género: </label>
+                                    <select class="form-control px-0" required name="genero" id="genero">
+                                        <option value="">Elija una opción</option> 
+                                        <option value="M">Masculino</option> 
+                                        <option value="F">Femenino</option> 
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('anio_nacimiento') ? ' has-error' : '' }}">
-                            <label for="anio_nacimiento" class="col-md-4 control-label">Fecha de Nacimiento</label>
-
-                            <div class="col-md-6">
-                                <input id="anio_nacimiento" type="date" class="form-control" name="anio_nacimiento" 
-                                    value="{{ old('anio_nacimiento') }}" required>
-
-                                @if ($errors->has('anio_nacimiento'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('anio_nacimiento') }}</strong>
-                                    </span>
-                                @endif
+                            <div class="form-row">
+                                <div class="col-md-4">
+                                    <label for="pais" class="mb-0">País: </label>
+                                    <select class="form-control px-0" required name="pais" id="pais">
+                                        <option value="">Elija una opción</option> 
+                                        @foreach ($pais as $p)
+                                            <option value="{{$p->idPais}}">{{ $p->Nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="departamento" class="mb-0">Departamento: </label>
+                                    <select class="form-control px-0" required name="departamento" id="departamento">
+                                        <option value="">Elija una opción</option> 
+                                        @foreach ($departamento as $d)
+                                            <option value="{{$d->DepartamentoEstado}}">{{ $d->Nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="distrito" class="mb-0">Distrito: </label>
+                                    <select class="form-control px-0" required name="distrito" id="distrito">
+                                        <option value="">Elija una opción</option> 
+                                        <option value="calleria">Calleria</option> 
+                                        <option value="coronel-portillo">Coronel Portillo</option> 
+                                        <option value="manantay">Manantay</option> 
+                                        <option value="coronel-portillo">Coronel Portillo</option> 
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('genero') ? ' has-error' : '' }}">
-                            <label for="genero" class="col-md-4 control-label">Fecha de Nacimiento</label>
-
-                            <div class="col-md-6">
-                                <select class="form-control" name="genero" id="genero" value="{{ old('genero') }}" required>
-                                    <option value="">Elija una opción</option>
-                                    <option value="M">Masculino</option>
-                                    <option value="F">Femenino</option>
-                                </select>
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <label for="direccion" class="mb-0">Dirección: </label>
+                                    <input type="text" name="direccion" id="direccion" placeholder="Ingrese su dirección" 
+                                        class="form-control px-0" required>
+                                </div>
                             </div>
-                            @if ($errors->has('genero'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('genero') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                        <div class="form-group{{ $errors->has('pais') ? ' has-error' : '' }}">
-                            <label for="pais" class="col-md-4 control-label">País</label>
-
-                            <div class="col-md-6">
-                                <select class="form-control" name="pais" id="pais" value="{{ old('pais') }}" required>
-                                    <option value="">Elija una opción</option>
-                                    {{-- @foreach ($pais as $data)
-                                        <option value="{{ $data }}">{{ $data }}</option>
-                                    @endforeach --}}
-                                </select>
+                            <div class="form-row">
+                                <div class="col-md-4">
+                                    <label for="estado_civil" class="mb-0">Estado Civil: </label>
+                                    <select class="form-control px-0" required name="estado_civil" id="estado_civil">
+                                        <option value="">Elija una opción</option> 
+                                        @foreach ($estado_civil as $e)
+                                            <option value="{{ $e->id }}">{{ $e->descripcion }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="discapacidad" class="mb-0">Discapacidad: </label>
+                                    <select class="form-control px-0" required name="discapacidad" id="discapacidad">
+                                        <option value="">Elija una opción</option> 
+                                        @foreach ($discapacidad as $d)
+                                            <option value="{{$d->id}}">{{ $d->descripcion }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="cantidad_hijos" class="mb-0">Cantidad de Hijos: </label>
+                                    <input type="number" name="cantidad_hijos" id="cantidad_hijos" class="form-control px-0" 
+                                        max="9" min="0" value="0" required>
+                                </div>
                             </div>
-                            @if ($errors->has('pais'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('pais') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="telefono" class="col-md-4 control-label">Telefono:</label>
-
-                            <div class="col-md-6">
-                                <input id="telefono" type="text" class="form-control" name="telefono" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="facultad" class="mb-0">Facultad: </label>
+                                    <select class="form-control px-0" required name="facultad" id="facultad">
+                                        <option value="">Elija una opción</option> 
+                                        @foreach ($facultad as $f)
+                                            <option value="{{$f->id}}">{{ $f->Nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="escuela" class="mb-0">Escuela: </label>
+                                    <select class="form-control px-0" required name="escuela" id="escuela">
+                                        <option value="">Elija una opción</option> 
+                                        @foreach ($escuela as $e)
+                                            <option value="{{$e->idEscuela}}">{{ $e->Nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="anio_ingreso" class="mb-0">Año de Ingreso: </label>
+                                    <input type="date" class="form-control px-0" required name="anio_ingreso" id="anio_ingreso">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="anio_egreso" class="mb-0">Año de Egreso: </label>
+                                    <input type="date" class="form-control px-0" required name="anio_egreso" id="anio_egreso">
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="anio_bachiller" class="mb-0">Año de Bachillerato: </label>
+                                    <input type="text" class="form-control px-0" required minlength="4" maxlength="4"name="anio_bachiller" 
+                                        id="anio_bachiller" placeholder="Ingrese su año de Bachillerato" onkeypress="return valida(event)">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="anio_titulo" class="mb-0">Año de Titulación: </label>
+                                    <input type="text" class="form-control px-0" minlength="4" maxlength="4"name="anio_titulo" 
+                                        id="anio_titulo" placeholder="Ingrese su año de Titulacion" onkeypress="return valida(event)">
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Register
-                                </button>
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-block text-uppercase" id="btn-registrar">Registrarse</button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection
