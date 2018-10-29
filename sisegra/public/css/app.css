@@ -8369,3 +8369,7 @@ button.close {
   color: white !important;
 }
 
+.card {
+  padding: 10px 20px !important;
+}
+

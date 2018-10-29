@@ -22,7 +22,7 @@ const routes = [
     { path: '/', component: require('./components/ExampleComponent.vue') },
     { path: '/admin', component: require('./components/Admin.vue') },
     { path: '/example', component: require('./components/ExampleComponent.vue') },
-    { path: '*', component: require('./components/ExampleComponent.vue') }
+    { path: '*', component: require('./components/Graduado.vue') }
 ];
 
 const router = new VueRouter({ 
@@ -37,6 +37,8 @@ Vue.component('admin', require('./components/Admin.vue'));
 // const app = new Vue({
 //     el: '#graduado'
 // });
+
+Vue.filter('formatDate', data => data.split('-').reverse().join('/'));
 
 const app = new Vue({
     router

@@ -130,27 +130,129 @@
                         <h4 class="card-title">Datos del Graduado</h4>
                     </div>
                     <div class="card-body">
-                        <form action="">
+                        <form>
                             <div class="row">
-                                <div class="col-md-6 pl-1">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="nombre">Nombre:</label>
-                                        <input type="text" class="form-control" placeholder="Nombre..." name="nombre" id="nombre"
-                                            v-model="graduado.Nombre">
+                                        <p>{{ graduado.Nombre }}</p>
                                     </div>
                                 </div>
-                                <div class="col-md-6 pl-3">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="correo">Correo:</label>
-                                        <input type="text" class="form-control" placeholder="Correo..." name="correo" id="correo"
-                                            v-model="graduado.Correo">
+                                        <p>{{ graduado.Correo }}</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="dni">DNI:</label>
+                                        <p>{{ graduado.DNI }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="telefono">Telefono:</label>
+                                        <p>{{ graduado.Telefono }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="genero">Genero:</label>
+                                        <p v-if="graduado.Genero == 'M'">Masculino</p>
+                                        <p v-else>Femenino</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <label for="direccion">Dirección:</label>
+                                        <p>{{ graduado.Dirección }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for="anio_nacimiento">Año Nacimiento:</label>
+                                        <p>{{ graduado.AnioNacimiento | formatDate }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="pais">Pais:</label>
+                                        <p>{{ graduado.Pais }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="departamento">Departamento:</label>
+                                        <p>{{ graduado.Departamento }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="distrito_ciudad">Ciudad:</label>
+                                        <p>{{ graduado.DistritoCiudad }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="estado_civil">Estado Civil:</label>
+                                        <p>{{ graduado.Estado_Civil }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="cant_hijos">Cantidad de Hijos:</label>
+                                        <p v-if="graduado.CantHijos == 0">No tiene hijos</p>
+                                        <p v-else-if="graduado.CantHijos == 1">{{ graduado.CantHijos }} hijo(a)</p>
+                                        <p v-else>{{ graduado.CantHijos }} hijos(as)</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="discapacidad">Discapacidad:</label>
+                                        <p>{{ graduado.Discapacidad }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="facultad">Facultad:</label>
+                                        <p>{{ graduado.Facultad }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="escuela">Escuela:</label>
+                                        <p>{{ graduado.Escuela_Profesional }}</p>
+                                    </div>
+                                </div>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-user">
+                    <div class="card-image">
+                        <img src="assets/img/sidebar-5.jpg" width="300" height="100" alt="">
+                    </div>
+                    <div class="card-body">
+                        <div class="author">
+                            <a href="#">
+                                <img class="avatar border-gray" src="assets/img/usuario-defecto.png" 
+                                    height="100" width="100" alt="">
+                                <h5 class="title">{{ graduado.Nombre }}</h5>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -195,7 +297,7 @@
                 axios.get('datos')
                     .then(data => {
                         this.graduado = data.data.resultado[0];
-                        // console.log(data.data.resultado[0]);
+                        console.log(this.graduado);
                     }).catch(error => console.log('Ocurrio un error ' + error)); 
             }
         }
