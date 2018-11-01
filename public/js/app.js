@@ -56567,38 +56567,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -56634,9 +56602,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getData: function getData() {
             var _this = this;
 
-            axios.get('datos').then(function (data) {
-                _this.graduado = data.data.graduados;
-                console.log(_this.graduado);
+            axios.get('escuela').then(function (data) {
+                _this.graduado = data.data.graduadoEscuela;
+                console.log(data);
             }).catch(function (error) {
                 return console.log('Ocurrio un error ' + error);
             });
@@ -56652,127 +56620,72 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container-fluid" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "content table-responsive table-full-width" },
+            [
+              _c("table", { staticClass: "table table-hover table-striped" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.graduado, function(g) {
+                    return _c("tr", [
+                      _c("td", [_vm._v(_vm._s(g.DNI))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(g.Nombre))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("$36,738")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("Niger")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("Oud-Turnhout")])
+                    ])
+                  })
+                )
+              ])
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container-fluid" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-12" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "header" }, [
-              _c("h4", { staticClass: "title" }, [
-                _vm._v("Striped Table with Hover")
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "category" }, [
-                _vm._v("Here is a subtitle for this table")
-              ])
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "content table-responsive table-full-width" },
-              [
-                _c(
-                  "table",
-                  { staticClass: "table table-hover table-striped" },
-                  [
-                    _c("thead", [
-                      _c("th", [_vm._v("ID")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Name")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Salary")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Country")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("City")])
-                    ]),
-                    _vm._v(" "),
-                    _c("tbody", [
-                      _c("tr", [
-                        _c("td", [_vm._v("1")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("Dakota Rice")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("$36,738")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("Niger")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("Oud-Turnhout")])
-                      ]),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c("td", [_vm._v("2")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("Minerva Hooper")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("$23,789")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("Curaçao")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("Sinaai-Waas")])
-                      ]),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c("td", [_vm._v("3")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("Sage Rodriguez")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("$56,142")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("Netherlands")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("Baileux")])
-                      ]),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c("td", [_vm._v("4")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("Philip Chaney")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("$38,735")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("Korea, South")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("Overland Park")])
-                      ]),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c("td", [_vm._v("5")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("Doris Greene")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("$63,542")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("Malawi")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("Feldkirchen in Kärnten")])
-                      ]),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c("td", [_vm._v("6")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("Mason Porter")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("$78,615")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("Chile")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("Gloucester")])
-                      ])
-                    ])
-                  ]
-                )
-              ]
-            )
-          ])
-        ])
+    return _c("div", { staticClass: "header" }, [
+      _c("h4", { staticClass: "title" }, [_vm._v("Striped Table with Hover")]),
+      _vm._v(" "),
+      _c("p", { staticClass: "category" }, [
+        _vm._v("Here is a subtitle for this table")
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("th", [_vm._v("DNI")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Nombre")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Telefono")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Correo")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Fecha Nacimiento")]),
+      _vm._v(" "),
+      _c("th")
     ])
   }
 ]
