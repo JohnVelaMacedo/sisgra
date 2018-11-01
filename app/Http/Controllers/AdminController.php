@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Persona;
 
 class AdminController extends Controller
 {
@@ -18,7 +19,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.index');
+        $Persona = Persona::all();
+        return compact('Persona');
     }
 
     /**

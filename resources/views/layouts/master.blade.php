@@ -42,6 +42,18 @@
                                     <p>Editar Perfil</p>
                                 </router-link>
                             </li>
+                            <li>
+                                <router-link to="/Facultades">
+                                    <i class="pe-7s-user"></i>
+                                    <p>Graduados por Facultades</p>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="/Graduados">
+                                    <i class="pe-7s-user"></i>
+                                    <p>Graduados Detallado</p>
+                                </router-link>
+                            </li>
                             @break
                         @case(2)
                             <li>

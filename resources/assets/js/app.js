@@ -38,10 +38,14 @@ Validator.localize({ [locale.name]: locale });
 const routes = [
     { path: '/home', component: require('./components/MasterComponent.vue') },
     { path: '/admin', component: require('./components/Admin.vue') },
+    { path: '/editar-admin', component: require('./components/admin/editar-admin.vue') },
+    { path: '/Facultades', component: require('./components/admin/Facultades.vue') },
+    { path: '/Graduados', component: require('./components/admin/Graduados.vue') },
     { path: '/editar-perfil', component: require('./components/graduado/EditGraduado.vue') },
     { path: '/listAlumnos', component: require('./components/escuela/graduadoList.vue') },
     { path: '/example', component: require('./components/MasterComponent.vue') },
     { path: '/ver-perfil', component: require('./components/graduado/Graduado.vue') },
+
     { path: '*', component: require('./components/MasterComponent.vue') }
 ];
 
