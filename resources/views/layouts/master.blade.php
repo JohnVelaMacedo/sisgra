@@ -65,9 +65,21 @@
                                 </router-link>
                             </li>
                             <li>
-                                <router-link to="/editar-director">
+                                <router-link to="/listAlumnos">
                                     <i class="pe-7s-user"></i>
-                                    <p>Editar Perfil</p>
+                                    <p>Alumnos</p>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="/editar-director">
+                                    <i class="pe-7s-cloud-upload"></i>
+                                    <p>Agregar Graduados por Año</p>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="/editar-director">
+                                    <i class="pe-7s-users"></i>
+                                    <p>Actualizar Graduados por Año</p>
                                 </router-link>
                             </li>
                             @break

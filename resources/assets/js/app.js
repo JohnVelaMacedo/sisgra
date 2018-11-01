@@ -39,6 +39,7 @@ const routes = [
     { path: '/home', component: require('./components/MasterComponent.vue') },
     { path: '/admin', component: require('./components/Admin.vue') },
     { path: '/editar-perfil', component: require('./components/graduado/EditGraduado.vue') },
+    { path: '/listAlumnos', component: require('./components/escuela/graduadoList.vue') },
     { path: '/example', component: require('./components/MasterComponent.vue') },
     { path: '/ver-perfil', component: require('./components/graduado/Graduado.vue') },
     { path: '*', component: require('./components/MasterComponent.vue') }
