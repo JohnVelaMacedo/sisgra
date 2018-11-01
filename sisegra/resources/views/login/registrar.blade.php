@@ -145,12 +145,12 @@
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <label for="anio_bachiller" class="mb-0">Año de Bachillerato: </label>
-                                    <input type="text" class="form-control px-0" required minlength="4" maxlength="4"name="anio_bachiller" 
+                                    <input type="text" class="form-control px-0" required minlength="4" maxlength="4" name="anio_bachiller" 
                                         id="anio_bachiller" placeholder="Ingrese su año de Bachillerato" onkeypress="return valida(event)">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="anio_titulo" class="mb-0">Año de Titulación: </label>
-                                    <input type="text" class="form-control px-0" minlength="4" maxlength="4"name="anio_titulo" 
+                                    <input type="text" class="form-control px-0" minlength="4" maxlength="4" name="anio_titulo" 
                                         id="anio_titulo" placeholder="Ingrese su año de Titulacion" onkeypress="return valida(event)">
                                 </div>
                             </div>

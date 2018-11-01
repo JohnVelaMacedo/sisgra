@@ -51,13 +51,13 @@ class LoginController extends Controller
         ];
     }
 
-    public function redirectPath() {
-        if (auth()->user()->tipo == 1) {
-            return '/admin';
-        } else if (auth()->user()->tipo == 4) {
-            return '/graduado';
-        }
-    }
+    // public function redirectPath() {
+    //     if (auth()->user()->tipo == 1) {
+    //         return '/home';
+    //     } else if (auth()->user()->tipo == 4) {
+    //         return '/home';
+    //     }
+    // }
 
     public function username() {
         return 'user';

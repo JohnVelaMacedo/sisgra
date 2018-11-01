@@ -8373,3 +8373,7 @@ button.close {
   padding: 10px 20px !important;
 }
 
+.router-link-exact-active {
+  background-color: rgba(255, 255, 255, 0.23);
+}
+

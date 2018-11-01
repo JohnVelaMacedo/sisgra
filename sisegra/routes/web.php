@@ -20,14 +20,18 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Graduado
-Route::resource('/graduado', 'GraduadoController');
+Route::resource('/graduado', 'GraduadoController', [
+    'except' => ['destroy', 'edit', 'show', 'store', 'create']
+]);
 Route::get('/datos', 'GraduadoController@getDatos')->name('graduado.datos');
 
 // Admin
 Route::resource('/admin', 'AdminController')->middleware('admin');
 
 // Verificar el logueo
-Route::resource('/logueo', 'LogueoController');
+Route::resource('/logueo', 'LogueoController', [
+    'except' => ['create', 'show', 'edit', 'update', 'destroy']
+]);
 
 // Rutas alternas
-Route::get('{path}', 'Auth\LoginController@redirectPath')->where('path', '([A-z\d-\/_.]+)?');
+Route::get('{path}', 'HomeController@index')->where('path', '([A-z\d-\/_.]+)?');

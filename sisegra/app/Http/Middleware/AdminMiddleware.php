@@ -18,11 +18,11 @@ class AdminMiddleware
         if (auth()->check() && auth()->user()->tipo == 1) {
             return $next($request);
         } else if (auth()->user()->tipo == 2) {
-            return redirect('/jefe');
+            return redirect('/home');
         } else if(auth()->user()->tipo == 3) {
-            return redirect('/director');
+            return redirect('/home');
         } else if(auth()->user()->tipo == 4) {
-            return redirect('/graduado');
+            return redirect('/home');
         }
     }
 }

@@ -48,17 +48,26 @@ class GraduadoController extends Controller
         // Obteniendo el tipo de Estado Civil
         $estado_civil = EstadoCivil::where('id', $graduado->EstadoCivil)->get();
 
-        return view('graduado.index', compact('graduado', 'discapacidad', 'escuela', 'facultad', 'departamento', 'estado_civil'));
+        // return view('graduado.index', compact('graduado', 'discapacidad', 'escuela', 'facultad', 'departamento', 'estado_civil'));
+        return compact('graduado', 'discapacidad', 'escuela', 'facultad', 'departamento', 'estado_civil');
     }
 
     public function getDatos() {
         $user = \Auth::user();
         $user = $user->id;
+        
+        $pais = Pais::all();
+        $departamento = DepartamentoEstado::all();
+        $facultad = Facultad::all();
+        $escuela = EscuelaProfesional::all();
+        $estado_civil = EstadoCivil::all();
+        $discapacidad = Discapacidad::all();
 
-        $resultado = \DB::select("SELECT g.DNI, g.Nombre, g.Telefono, g.Correo, g.AnioNacimiento, g.Genero, p.Nombre as 'Pais', 
-                                de.Nombre AS 'Departamento', g.DistritoCiudad, g.Dirección, ec.descripcion AS 'Estado_Civil', 
-                                g.CantHijos, d.descripcion AS 'Discapacidad', f.Nombre AS 'Facultad', ep.Nombre AS 'Escuela_Profesional',
-                                g.Ingreso, g.egreso, g.AnioBachiller, g.AnioTitulo 
+        $resultado = \DB::select("SELECT g.DNI, g.Nombre, g.Telefono, g.Correo, g.AnioNacimiento, g.Genero, p.idPais, p.Nombre as 'Pais', 
+                                de.Nombre AS 'Departamento', de.DepartamentoEstado, g.DistritoCiudad, g.Dirección, 
+                                ec.descripcion AS 'Estado_Civil', ec.id AS 'idEstadoCivil' ,g.CantHijos, d.descripcion AS 'Discapacidad', 
+                                d.id AS 'idDiscapacidad', f.Nombre AS 'Facultad', f.id AS 'idFacultad', ep.Nombre AS 'Escuela_Profesional', 
+                                ep.idEscuela AS 'idEscuela', g.Ingreso, g.egreso, g.AnioBachiller, g.AnioTitulo 
                                 FROM graduado g
                                 INNER JOIN pais p ON p.idPais = g.PaisResidencia
                                 INNER JOIN departamentoestado de ON de.DepartamentoEstado = g.EstadoDepartamento
@@ -67,7 +76,8 @@ class GraduadoController extends Controller
                                 INNER JOIN facultad f ON f.id = g.Facultad
                                 INNER JOIN escuelaprofesional ep ON ep.idEscuela = g.Escuela
                                 WHERE DNI = ?", [$user]);
-        return compact('resultado');
+
+        return compact('resultado', 'pais', 'departamento', 'facultad', 'escuela', 'estado_civil', 'discapacidad', 'user');
     }
 
     /**
@@ -122,7 +132,37 @@ class GraduadoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Actualizando Graduado
+        $graduado = \DB::update("UPDATE graduado SET Nombre = ?, Telefono = ?, Correo = ?, AnioNacimiento = ?, 
+                Genero = ?, PaisResidencia = ?, EstadoDepartamento = ?, DistritoCiudad = ?, Dirección = ?, EstadoCivil = ?, 
+                CantHijos = ?, Discapacidad = ?, Facultad = ?, Escuela = ?, Ingreso = ?, egreso = ?, AnioBachiller = ?, AnioTitulo = ? 
+                WHERE DNI = ?", [
+                        $request->graduado['Nombre'], $request->graduado['Telefono'], $request->graduado['Correo'],
+                        $request->graduado['AnioNacimiento'], $request->graduado['Genero'], $request->graduado['idPais'],
+                        $request->graduado['DepartamentoEstado'], $request->graduado['DistritoCiudad'], $request->graduado['Dirección'],
+                        $request->graduado['idEstadoCivil'], $request->graduado['CantHijos'], $request->graduado['idDiscapacidad'],
+                        $request->graduado['idFacultad'], $request->graduado['idEscuela'], $request->graduado['Ingreso'],
+                        $request->graduado['egreso'], $request->graduado['AnioBachiller'], $request->graduado['AnioTitulo'],
+                        $request->graduado['DNI']
+                ]);
+        
+        // Actualizando GradoGraduado
+        if (strlen($request->graduado['AnioTitulo']) > 0) {
+            $grado = 2;
+        } else {
+            $grado = 1;
+        }
+
+        $grado_graduado = \DB::update('UPDATE gradograduado SET Grado = ?, AnioGraduacion = ? WHERE idGraduado = ?', [
+            $grado,
+            $request->graduado['AnioBachiller'],
+            $request->graduado['DNI']
+        ]);
+
+        if($graduado && $grado_graduado) {
+            return 'correcto';
+        }
+        return 'error';
     }
 
     /**

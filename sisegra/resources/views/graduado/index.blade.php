@@ -112,14 +112,22 @@
         <div class="sidebar" data-color="dark" data-image="assets/img/sidebar-5.jpg">
             <div class="sidebar-wrapper">
                 <div class="logo">
-                    <router-link to="/graduado" class="simple-text">Universidad Nacional de Ucayali</router-link>
+                    <a class="simple-text" style="text-decoration: none">
+                        Universidad Nacional de Ucayali
+                    </a>
                 </div>
 
                 <ul class="nav">
-                    <li class="active">
+                    <li>
                         <router-link to="/graduado">
                             <i class="pe-7s-graph"></i>
                             <p>Dashboard</p>
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link to="/editar-perfil">
+                            <i class="pe-7s-user"></i>
+                            <p>Editar Perfil</p>
                         </router-link>
                     </li>
                     <li>
