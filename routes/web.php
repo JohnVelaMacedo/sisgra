@@ -23,6 +23,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/graduado', 'GraduadoController', [
     'except' => ['destroy', 'edit', 'show', 'store', 'create']
 ]);
+Route::resource('/escuela', 'escuelaController');
+
 Route::get('/datos', 'GraduadoController@getDatos')->name('graduado.datos');
 
 // Admin

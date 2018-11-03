@@ -62,6 +62,7 @@ class GraduadoController extends Controller
         $escuela = EscuelaProfesional::all();
         $estado_civil = EstadoCivil::all();
         $discapacidad = Discapacidad::all();
+        $graduadosEscuela = Graduado::where("");
 
         $resultado = \DB::select("SELECT g.DNI, g.Nombre, g.Telefono, g.Correo, g.AnioNacimiento, g.Genero, p.idPais, p.Nombre as 'Pais', 
                                 de.Nombre AS 'Departamento', de.DepartamentoEstado, g.DistritoCiudad, g.Dirección, 

@@ -10,6 +10,7 @@
 	<title>Universidad Nacional de Ucayali</title>
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/animate.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/datatables.min.js') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/light-bootstrap-dashboard.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/my-style.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/pe-icon-7-stroke.css') }}" rel="stylesheet" />
@@ -42,6 +43,18 @@
                                     <p>Editar Perfil</p>
                                 </router-link>
                             </li>
+                            <li>
+                                <router-link to="/Facultades">
+                                    <i class="pe-7s-user"></i>
+                                    <p>Graduados por Facultades</p>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="/Graduados">
+                                    <i class="pe-7s-user"></i>
+                                    <p>Graduados Detallado</p>
+                                </router-link>
+                            </li>
                             @break
                         @case(2)
                             <li>
@@ -65,9 +78,21 @@
                                 </router-link>
                             </li>
                             <li>
-                                <router-link to="/editar-director">
+                                <router-link to="/listAlumnos">
                                     <i class="pe-7s-user"></i>
-                                    <p>Editar Perfil</p>
+                                    <p>Alumnos</p>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="/editar-director">
+                                    <i class="pe-7s-cloud-upload"></i>
+                                    <p>Agregar Graduados por Año</p>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="/editar-director">
+                                    <i class="pe-7s-users"></i>
+                                    <p>Actualizar Graduados por Año</p>
                                 </router-link>
                             </li>
                             @break
@@ -155,5 +180,28 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('assets/js/light-bootstrap-dashboard.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/bootstrap-notify.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/datatables.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+        $('#tabla').DataTable({
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ entradas",
+            "zeroRecords": "No se encontraron registros",
+            "info": "Mostrando pagina _PAGE_ de _PAGES_",
+            "infoEmpty": "No hay registros disponibles",
+            "infoFiltered": "(filtrando de _MAX_ registros)",
+            "processing":     "Procesando...",
+            "search":         "Buscar:",
+            "paginate": {
+                "first":      "Primero",
+                "last":       "Ultimo",
+                "next":       "Siguiente",
+                "previous":   "Anterior"
+                        }
+
+        }
+            });
+        } );
+    </script>
 </body>
 </html>

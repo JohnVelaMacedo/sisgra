@@ -4,14 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Persona;
-
-class AdminController extends Controller
+use App\Graduado;
+class escuelaController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -19,8 +14,15 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $Persona = Persona::all();
-        return compact('Persona');
+        $user = \Auth::user();
+        $user = $user->id;
+        $persona=Persona::where('DNI',$user)->first();
+
+        // Obteniendo el tipo de Estado Civil
+        $graduadoEscuela = Graduado::where('Escuela', $persona->idEscuela)->get();
+
+        // return view('graduado.index', compact('graduado', 'discapacidad', 'escuela', 'facultad', 'departamento', 'estado_civil'));
+        return compact('persona','graduadoEscuela');
     }
 
     /**
