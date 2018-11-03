@@ -8,28 +8,11 @@
                                 <p class="category">Here is a subtitle for this table</p>
                             </div>
                             <div class="content table-responsive table-full-width">
-                                <table class="table table-hover table-striped">
-                                    <thead>
-                                        <th>DNI</th>
-                                    	<th>Nombre</th>
-                                    	<th>Telefono</th>
-                                    	<th>Correo</th>
-                                    	<th>Fecha Nacimiento</th>
-                                    	<th></th>
-                                    </thead>
-                                    <tbody>
-
-                                        <tr v-for="g in graduado">
-                                        	<td>{{ g.DNI }}</td>
-                                        	<td>{{ g.Nombre}}</td>
-                                        	<td>$36,738</td>
-                                        	<td>Niger</td>
-                                        	<td>Oud-Turnhout</td>
-                                        </tr>
-                                        
-                                    </tbody>
-                                </table>
-
+                                
+                                <v-client-table :data="graduado" :columns="columns" :options="options">
+                                <a slot="Acciones" slot-scope="props" target="_blank" :href="props.row.Acciones" class="glyphicon glyphicon-eye-open"></a>
+                                
+                                </v-client-table>
                             </div>
                         </div>
                     </div>
@@ -41,7 +24,8 @@
 export default {
     data() {
         return {
-            graduado: {
+            graduado: [
+                {
                 AnioBachiller: null,
                 AnioNacimiento: null,
                 AnioTitulo: null,
@@ -61,6 +45,18 @@ export default {
                 Pais: null,
                 Telefono: null,
                 egreso: null,
+                }
+            ],
+            columns: ['DNI', 'Nombre', 'egreso','Acciones'],
+            options: {
+                headings: {
+        DNI: 'N° DNI',
+        Nombre: 'Nombres',
+        egreso: 'Fecha Egreso',
+        Acciones:'Acciones'
+      },
+      sortable: ['DNI', 'Nombre','egreso'],
+      filterable: ['name', 'code']
             }
         }
     },
@@ -72,6 +68,9 @@ export default {
             axios.get('escuela')
                 .then(data => {
                    this.graduado=data.data.graduadoEscuela;
+                   this.graduado.forEach((element,i) => {
+                       this.graduado[i].Acciones=this.graduado[i].DNI;
+                   });
                    console.log(data);
                 }).catch(error => console.log('Ocurrio un error ' + error)); 
         }
