@@ -67,7 +67,6 @@ const routes = [
     { path: '/listAlumnos', component: require('./components/escuela/graduadoList.vue') },
     { path: '/example', component: require('./components/MasterComponent.vue') },
     { path: '/ver-perfil', component: require('./components/graduado/Graduado.vue') },
-<<<<<<< HEAD
     // { path: '/trabajo', component: require('./components/graduado/Trabajo.vue') },
     { 
         path: '/trabajo', 
@@ -77,9 +76,6 @@ const routes = [
             component: require('./components/graduado/Ejemplo.vue')
         }]
     },
-=======
-
->>>>>>> origin/master
     { path: '*', component: require('./components/MasterComponent.vue') }
 ];
 
