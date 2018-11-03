@@ -4,8 +4,15 @@
             <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Lista Graduados</h4>
-                                <p class="category">Here is a subtitle for this table</p>
+                                <div class="row">
+                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                        <button class="btn btn-primary">Agregar</button>
+                                    </div>
+                                    <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-4 col-lg-4">
+                                        <h4 class="title">Lista Graduados</h4>
+                                        <p class="category">Graduados de le escuela</p>
+                                    </div>
+                                </div>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 

@@ -88613,6 +88613,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -88737,10 +88744,25 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "header" }, [
-      _c("h4", { staticClass: "title" }, [_vm._v("Lista Graduados")]),
-      _vm._v(" "),
-      _c("p", { staticClass: "category" }, [
-        _vm._v("Here is a subtitle for this table")
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-lg-1 col-md-1 col-sm-1 col-xs-1" }, [
+          _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Agregar")])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "col-lg-offset-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-4 col-lg-4"
+          },
+          [
+            _c("h4", { staticClass: "title" }, [_vm._v("Lista Graduados")]),
+            _vm._v(" "),
+            _c("p", { staticClass: "category" }, [
+              _vm._v("Graduados de le escuela")
+            ])
+          ]
+        )
       ])
     ])
   }
