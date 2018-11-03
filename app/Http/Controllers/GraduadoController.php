@@ -159,7 +159,7 @@ class GraduadoController extends Controller
             $request->graduado['DNI']
         ]);
 
-        if($graduado && $grado_graduado) {
+        if($graduado) {
             return 'correcto';
         }
         return 'error';

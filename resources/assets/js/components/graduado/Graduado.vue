@@ -167,10 +167,15 @@ export default {
     },
     methods: {
         getData() {
+            this.$Progress.start();
             axios.get('datos')
                 .then(data => {
                     this.graduado = data.data.resultado[0];
-                }).catch(error => console.log('Ocurrio un error ' + error)); 
+                    this.$Progress.finish();
+                }).catch(error => {
+                    this.$Progress.fail();
+                    console.log('Error: ' + error);
+                }); 
         }
     }
 }

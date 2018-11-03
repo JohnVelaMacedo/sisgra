@@ -89,7 +89,13 @@
                                     <i class="pe-7s-user"></i>
                                     <p>Editar Perfil</p>
                                 </router-link>
-                            </li>        
+                            </li>
+                            <li>
+                                <router-link to="/trabajo">
+                                    <i class="pe-7s-portfolio"></i>
+                                    <p>Trabajo</p>
+                                </router-link>
+                            </li>
                             @break
                         @default
                             @break   
@@ -120,9 +126,6 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                    </div>
-                    <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav navbar-right"></ul>
                     </div>
                 </div>
             </nav>

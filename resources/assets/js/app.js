@@ -8,18 +8,39 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import moment from "moment";
 import VueRouter from 'vue-router';
 import VeeValidate, { Validator } from 'vee-validate';
+import VueProgressBar from 'vue-progressbar';
+import swal from 'sweetalert2';
+import {ServerTable, ClientTable, Event} from 'vue-tables-2';
+
+Vue.use(ClientTable);
+
+window.swal = swal;
+
+Vue.filter('formatDate', function(data) {
+    return moment(data).format("DD/MM/YYYY"); 
+});
+
+Vue.use(VueProgressBar, {
+    color: 'rgb(143, 255, 199)',
+    failedColor: 'red',
+    height: '2px'
+});
 
 Vue.use(VueRouter);
 Vue.use(VeeValidate);
 
+// Configuración de los mensajes de validación
 const messages = {
     alpha_spaces: (field) => `El campo ${field} solo debe contener letras y espacios.`,
+    between: (field, [min, max]) => `Este campo debe estar entre ${min} y ${max}.`,
     email: (field) => `El campo ${field} debe ser un correo electrónico válido.`,
+    date_format: (field, [format]) => format == 'YYYY' ? `Este campo debe tener formato de año` : `Este campo debe tener formato ${format}.`,
     max: (field, [length]) => `El campo de ${field} no debe ser mayor a ${length} caracteres.`,
     min: (field, [length]) => `El campo de ${field} debe tener al menos ${length} caracteres.`,
-    numeric: (field) => `El campo ${field} debe contener solo caracteres numéricos.`,
+    numeric: (field) => `Este campo debe contener solo caracteres numéricos.`,
     required: (field) => `El campo ${field} es obligatorio.`
 };
 
@@ -35,12 +56,22 @@ Validator.localize({ [locale.name]: locale });
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+// Rutas 
 const routes = [
     { path: '/home', component: require('./components/MasterComponent.vue') },
     { path: '/admin', component: require('./components/Admin.vue') },
     { path: '/editar-perfil', component: require('./components/graduado/EditGraduado.vue') },
     { path: '/example', component: require('./components/MasterComponent.vue') },
     { path: '/ver-perfil', component: require('./components/graduado/Graduado.vue') },
+    // { path: '/trabajo', component: require('./components/graduado/Trabajo.vue') },
+    { 
+        path: '/trabajo', 
+        component: require('./components/graduado/Trabajo.vue'),
+        children: [{
+            path: 'ayuda',
+            component: require('./components/graduado/Ejemplo.vue')
+        }]
+    },
     { path: '*', component: require('./components/MasterComponent.vue') }
 ];
 
@@ -58,8 +89,6 @@ Vue.component('admin', require('./components/Admin.vue'));
 //     el: '#graduado'
 // });
 
-Vue.filter('formatDate', data => data.split('-').reverse().join('/'));
-
 const app = new Vue({
     router
-  }).$mount('#app');
+}).$mount('#app');

@@ -34,7 +34,7 @@
                                         <label for="dni">DNI:</label>
                                         <input type="text" name="dni" id="dni" required v-model.trim="graduado.DNI" 
                                             class="form-control" maxlength="8" v-validate="'required|numeric|min:8'" 
-                                            :class="{'error': errors.has('dni')}" placeholder="Ingrese su DNI">
+                                            :class="{'error': errors.has('dni')}" placeholder="Ingrese su DNI" readonly>
                                         <span v-if="errors.has('dni')" class="errorSpan">{{ errors.first('dni') }}</span>
                                     </div>
                                 </div>
@@ -120,8 +120,10 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="cant_hijos">Cantidad de Hijos:</label>
-                                        <input type="number" name="cant_hijos" v-model.number="graduado.CantHijos" 
-                                            id="cant_hijos" class="form-control" min="0" max="9">
+                                        <input type="number" name="cant_hijos" v-model="graduado.CantHijos" 
+                                            id="cant_hijos" class="form-control" v-validate="'required|between:0, 10'"
+                                            min="0" max="10" :class="{'error': errors.has('cant_hijos')}" maxlength="2">
+                                        <span v-if="errors.has('cant_hijos')" class="errorSpan">{{ errors.first('cant_hijos') }}</span>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -158,7 +160,7 @@
                                         <input type="text" name="bachillerato" id="bachillerato" class="form-control" 
                                             v-model="graduado.AnioBachiller" maxlength="4" required 
                                             placeholder="Ingrese su año de Bachillerato" :class="{'error': errors.has('bachillerato')}"
-                                            v-validate="'required|numeric|min:4|max:4'">
+                                            v-validate="'required|date_format:YYYY'">
                                         <span v-if="errors.has('bachillerato')" class="errorSpan">{{ errors.first('bachillerato') }}</span>
                                     </div>
                                 </div>
@@ -167,7 +169,7 @@
                                         <label for="titulacion">Año de Titulación:</label>
                                         <input type="text" name="titulacion" id="titulacion" class="form-control" 
                                             v-model="graduado.AnioTitulo" placeholder="Ingrese su año de Titulacion" maxlength="4"
-                                            :class="{'error': errors.has('titulacion')}" v-validate="'numeric|min:4|max:4'">
+                                            :class="{'error': errors.has('titulacion')}" v-validate="'date_format:YYYY'">
                                         <span v-if="errors.has('titulacion')" class="errorSpan">{{ errors.first('titulacion') }}</span>
                                     </div>
                                 </div>
@@ -228,6 +230,7 @@ export default {
     },
     methods: {
         getData() {
+            this.$Progress.start();
             axios.get('datos')
                 .then(data => {
                     this.graduado = data.data.resultado[0];
@@ -238,7 +241,11 @@ export default {
                     this.estado_civil = data.data.estado_civil;
                     this.discapacidad = data.data.discapacidad;
                     this.user = data.data.user;
-                }).catch(error => console.log('Ocurrio un error ' + error)); 
+                    this.$Progress.finish();
+                }).catch(error => {
+                    console.log('Ocurrio un error ' + error);
+                    this.$Progress.fail();
+                }); 
         },
         editProfile() {
             this.$validator.validateAll().then(res => {
@@ -246,10 +253,48 @@ export default {
                     axios.put(`graduado/${this.user}`, {
                         graduado: this.graduado,
                         user: this.user
-                    }).then(data => console.log(data))
-                        .catch(error => console.log(error));
+                    }).then(data => {
+                        if (data.data == 'correcto') {
+                            swal({
+                                position: 'top-end',
+                                type: 'success',
+                                title: 'Datos actualizados correctamente',
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
+                            setTimeout(() => {
+                                this.$router.push('/ver-perfil');
+                            }, 2500);
+                        } else {
+                            swal({
+                                position: 'top-end',
+                                type: 'error',
+                                title: 'No se pudo actualizar',
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
+                            setTimeout(() => {
+                                this.$router.push('/ver-perfil');
+                            }, 2500);
+                        }
+                    }).catch(error => {
+                        swal({
+                            position: 'top-end',
+                            type: 'error',
+                            title: 'Sucedió un error, comuníquese con el Administrador',
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                        console.log(`Error: ${error}`);
+                    });
                 } else {
-                    alert('Por favor corrija los errores');
+                    swal({
+                        position: 'top-end',
+                        type: 'error',
+                        title: 'Por favor corrija los errores',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
                 }
             });
         }
