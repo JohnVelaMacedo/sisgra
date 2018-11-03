@@ -178,5 +178,27 @@
     <script src="{{ asset('assets/js/light-bootstrap-dashboard.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/bootstrap-notify.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/datatables.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+        $('#tabla').DataTable({
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ entradas",
+            "zeroRecords": "No se encontraron registros",
+            "info": "Mostrando pagina _PAGE_ de _PAGES_",
+            "infoEmpty": "No hay registros disponibles",
+            "infoFiltered": "(filtrando de _MAX_ registros)",
+            "processing":     "Procesando...",
+            "search":         "Buscar:",
+            "paginate": {
+                "first":      "Primero",
+                "last":       "Ultimo",
+                "next":       "Siguiente",
+                "previous":   "Anterior"
+                        }
+
+        }
+            });
+        } );
+    </script>
 </body>
 </html>
