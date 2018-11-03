@@ -81,4 +81,12 @@ class ReporteGraduados extends Controller
     {
         //
     }
+    public function getDatos()
+    {
+        $user = \Auth::user();
+        $user = $user->id;
+        $resultado = \DB::select("CALL `SP_MostrarCantidadPorEscuelaAnio`()");
+
+        return compact('resultado');
+    }
 }

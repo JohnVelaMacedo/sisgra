@@ -29,7 +29,8 @@ Route::get('/datos', 'GraduadoController@getDatos')->name('graduado.datos');
 
 // Admin
 Route::resource('/admin', 'AdminController')->middleware('admin');
-
+Route::resource('/facultades', 'ReporteGraduados');
+Route::get('/facultadesdatos', 'ReporteGraduados@getDatos');
 // Verificar el logueo
 Route::resource('/logueo', 'LogueoController', [
     'except' => ['create', 'show', 'edit', 'update', 'destroy']
