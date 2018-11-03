@@ -4,14 +4,18 @@
             <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Striped Table with Hover</h4>
+                                <h4 class="title">Lista Graduados</h4>
                                 <p class="category">Here is a subtitle for this table</p>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 
                                 <v-client-table :data="graduado" :columns="columns" :options="options">
-                                <a slot="Acciones" slot-scope="props" target="_blank" :href="props.row.Acciones" class="glyphicon glyphicon-eye-open"></a>
-                                
+                                    <div slot="Acciones" slot-scope="props">
+                                        <!-- <a  target="_blank" slot="Acciones" slot-scope="props" :href="props.row.Acciones" class="pe-7s-pen">ASD</a>
+                                        <a  target="_blank" :href="props.row.Acciones" class="pe-7s-pen">DSA</a> -->
+                                        <button class="pe-7s-pen" data-toggle="tooltip" data-placement="left" title="Editar Graduado"></button>
+                                        <button class="pe-7s-look" data-toggle="tooltip" data-placement="left" title="Ver Hoja de Vida"></button>
+                                    </div>
                                 </v-client-table>
                             </div>
                         </div>
@@ -50,14 +54,14 @@ export default {
             columns: ['DNI', 'Nombre', 'egreso','Acciones'],
             options: {
                 headings: {
-        DNI: 'N° DNI',
-        Nombre: 'Nombres',
-        egreso: 'Fecha Egreso',
-        Acciones:'Acciones'
-      },
-      sortable: ['DNI', 'Nombre','egreso'],
-      filterable: ['name', 'code']
-            }
+                    DNI: 'N° DNI',
+                    Nombre: 'Nombres',
+                    egreso: 'Fecha Egreso',
+                    Acciones:'Acciones'
+                        },
+                sortable: ['DNI', 'Nombre','egreso'],
+                filterable: ['DNI', 'Nombre']
+                    }
         }
     },
     created() {

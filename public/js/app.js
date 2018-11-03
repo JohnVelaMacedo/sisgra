@@ -88609,6 +88609,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -88643,7 +88647,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     Acciones: 'Acciones'
                 },
                 sortable: ['DNI', 'Nombre', 'egreso'],
-                filterable: ['name', 'code']
+                filterable: ['DNI', 'Nombre']
             }
         };
     },
@@ -88696,10 +88700,25 @@ var render = function() {
                   {
                     key: "Acciones",
                     fn: function(props) {
-                      return _c("a", {
-                        staticClass: "glyphicon glyphicon-eye-open",
-                        attrs: { target: "_blank", href: props.row.Acciones }
-                      })
+                      return _c("div", {}, [
+                        _c("button", {
+                          staticClass: "pe-7s-pen",
+                          attrs: {
+                            "data-toggle": "tooltip",
+                            "data-placement": "left",
+                            title: "Editar Graduado"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("button", {
+                          staticClass: "pe-7s-look",
+                          attrs: {
+                            "data-toggle": "tooltip",
+                            "data-placement": "left",
+                            title: "Ver Hoja de Vida"
+                          }
+                        })
+                      ])
                     }
                   }
                 ])
@@ -88718,7 +88737,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "header" }, [
-      _c("h4", { staticClass: "title" }, [_vm._v("Striped Table with Hover")]),
+      _c("h4", { staticClass: "title" }, [_vm._v("Lista Graduados")]),
       _vm._v(" "),
       _c("p", { staticClass: "category" }, [
         _vm._v("Here is a subtitle for this table")
