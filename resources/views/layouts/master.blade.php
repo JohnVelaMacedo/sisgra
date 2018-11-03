@@ -10,6 +10,7 @@
 	<title>Universidad Nacional de Ucayali</title>
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/animate.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/datatables.min.js') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/light-bootstrap-dashboard.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/my-style.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/pe-icon-7-stroke.css') }}" rel="stylesheet" />
@@ -176,5 +177,6 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('assets/js/light-bootstrap-dashboard.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/bootstrap-notify.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/datatables.min.js') }}"></script>
 </body>
 </html>
