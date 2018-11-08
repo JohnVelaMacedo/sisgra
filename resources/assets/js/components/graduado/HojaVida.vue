@@ -37,6 +37,7 @@
                             </div>
                             <div class="seccion">
                                 <h4 class="card-title"><b>Datos Personales</b></h4>
+                                <a href="reporteexcel" target="_blank">Descargar Excel</a>
                             </div>
                         </div>
                     </div>

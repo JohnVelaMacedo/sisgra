@@ -90105,6 +90105,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -90228,7 +90229,13 @@ var staticRenderFns = [
                 _c("div", { staticClass: "seccion" }, [
                   _c("h4", { staticClass: "card-title" }, [
                     _c("b", [_vm._v("Datos Personales")])
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    { attrs: { href: "reporteexcel", target: "_blank" } },
+                    [_vm._v("Descargar Excel")]
+                  )
                 ])
               ])
             ])

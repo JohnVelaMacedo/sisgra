@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Exports\UsersExport;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Excel;
-class ReporteGeneral extends controller
+
+use Maatwebsite\Excel\Facades\Excel;   
+
+class ReporteGeneral extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -29,15 +31,24 @@ class ReporteGeneral extends controller
      */
     public function excel()
     {        
-        
+        /**
+         * toma en cuenta que para ver los mismos 
+         * datos debemos hacer la misma consulta
+        **/
         // Excel::create('Laravel Excel', function($excel) {
-        // $excel->sheet('Excel sheet', function($sheet) {
-        //     //otra opción -> $products = Product::select('name')->get();
-        //     $resultado = \DB::select("CALL `SP_MostrarTodos`()");               
-        //     $sheet->fromArray($resultado);
-        //     $sheet->setOrientation('landscape');
-        $resultado[] = array('nombre','apellidos','casa'); 
-        return \Excel::download($resultado,'user.xlsx');
+        //     $excel->sheet('Excel sheet', function($sheet) {
+
+        //         // $user = \Auth::user();
+        //         // $user = $user->id;
+        //         // $resultado = \DB::select("CALL `SP_MostrarTodos`()");
+        //         $resultado = Graduado::all();
+        //         $sheet->fromArray($resultado);
+        //         $sheet->setOrientation('landscape');
+        //     });
+        // })->export('xls');
+
+        // $resultado = Graduado::all();
+        return Excel::download(new UsersExport, 'graduado.xlsx');
     }
     /**
      * Store a newly created resource in storage.
