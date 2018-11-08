@@ -89988,6 +89988,10 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(407)
+}
 var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(395)
@@ -89996,7 +90000,7 @@ var __vue_template__ = __webpack_require__(396)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -90053,8 +90057,71 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            graduado: {
+                AnioBachiller: null,
+                AnioNacimiento: null,
+                AnioTitulo: null,
+                CantHijos: null,
+                Correo: null,
+                DNI: null,
+                Departamento: null,
+                Dirección: null,
+                Discapacidad: null,
+                DistritoCiudad: null,
+                Escuela_Profesional: null,
+                Estado_Civil: null,
+                Facultad: null,
+                Genero: null,
+                Ingreso: null,
+                Nombre: null,
+                Pais: null,
+                Telefono: null,
+                egreso: null
+            }
+        };
+    },
+
+    methods: {
+        getData: function getData() {
+            axios.get('');
+        }
+    }
+});
 
 /***/ }),
 /* 396 */
@@ -90074,14 +90141,82 @@ var staticRenderFns = [
     return _c("div", { staticClass: "container-fluid" }, [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-12" }, [
-          _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card card-user" }, [
             _c("div", { staticClass: "card-header" }, [
-              _c("h4", { staticClass: "card-title text-center" }, [
+              _c("h3", { staticClass: "card-title text-center" }, [
                 _vm._v("DATOS DEL GRADUADO")
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" })
+            _c("div", { staticClass: "card-body" }, [
+              _c("div", { staticClass: "author" }, [
+                _c("img", {
+                  staticClass: "avatar border-gray",
+                  staticStyle: { "margin-top": "70px" },
+                  attrs: {
+                    src: "assets/img/usuario-defecto.png",
+                    height: "100",
+                    width: "100"
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "cuerpo" }, [
+                _c("div", { staticClass: "seccion" }, [
+                  _c("h4", { staticClass: "card-title" }, [
+                    _c("b", [_vm._v("Datos Personales")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "datos" }, [
+                    _c("p", [
+                      _vm._v("Nombres y Apellidos: John Ray Vela Macedo")
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v("Fecha de Nacimiento: 31/12/1997")]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v("DNI: 70370572")]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v("País de Nacimiento: Perú")]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v("Celular: 998428074")]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v("Género: Masculino")])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "seccion" }, [
+                  _c("h4", { staticClass: "card-title" }, [
+                    _c("b", [_vm._v("Universidad")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "datos" }, [
+                    _c("p", [_vm._v("Facultad: Ingeniería de Sistemas")]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _vm._v(
+                        "Escuela: Escuela Profesional de Ingeniería de Sistemas"
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v("Año de Ingreso: 04/12/2014")]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v("Año de Egreso: 04/12/2018")])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "seccion" }, [
+                  _c("h4", { staticClass: "card-title" }, [
+                    _c("b", [_vm._v("Datos Personales")])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "seccion" }, [
+                  _c("h4", { staticClass: "card-title" }, [
+                    _c("b", [_vm._v("Datos Personales")])
+                  ])
+                ])
+              ])
+            ])
           ])
         ])
       ])
@@ -90102,6 +90237,55 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 398 */,
+/* 399 */,
+/* 400 */,
+/* 401 */,
+/* 402 */,
+/* 403 */,
+/* 404 */,
+/* 405 */,
+/* 406 */,
+/* 407 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(408);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(168)("7029635a", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-d6429ade\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./HojaVida.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-d6429ade\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./HojaVida.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 408 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(167)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.datos {\r\n    padding-left: 20px;\n}\n.cuerpo {\r\n    padding-left: 60px;\n}\r\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);
