@@ -13,6 +13,7 @@ use App\GradoGraduado;
 use App\User;
 use App\EscuelaProfesional;
 
+
 class LogueoController extends Controller
 {
     /**

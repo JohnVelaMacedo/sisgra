@@ -32,9 +32,8 @@ Route::resource('/admin', 'AdminController')->middleware('admin');
 Route::resource('/facultades', 'ReporteGraduados');
 Route::get('/facultadesdatos', 'ReporteGraduados@getDatos');
 Route::get('/reportedatos', 'ReporteGeneral@getDatos');
-Route::get('/reporteexcel', function(){
-    return view('admin.reporteexcel');
-});
+Route::get('reporteexcel', 'ReporteGeneral@excel');
+
 // Verificar el logueo
 Route::resource('/logueo', 'LogueoController', [
     'except' => ['create', 'show', 'edit', 'update', 'destroy']

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;   
 
 class ReporteGeneral extends Controller
 {
@@ -25,7 +26,25 @@ class ReporteGeneral extends Controller
     {
         //
     }
+    /**Funcion para crear una hoja de excel teniendo los datos en una consulta
+     */
+    public function excel()
+    {        
+        /**
+         * toma en cuenta que para ver los mismos 
+         * datos debemos hacer la misma consulta
+        **/
+        Excel::create('Laravel Excel', function($excel) {
+            $excel->sheet('Excel sheet', function($sheet) {
 
+                // $user = \Auth::user();
+                // $user = $user->id;
+                $resultado = \DB::select("CALL `SP_MostrarTodos`()");
+                $sheet->fromArray($resultado);
+                // $sheet->setOrientation('landscape');
+            });
+        })->download('user.xlsx');
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -50,7 +69,7 @@ class ReporteGeneral extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
+     *  
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
