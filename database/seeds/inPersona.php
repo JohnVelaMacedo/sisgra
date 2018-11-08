@@ -22,5 +22,12 @@ class inPersona extends Seeder
             'Correo' => 'oliver@gmail.com',
             'estado' => 1,
         ]);
+        DB::table('user')->insert([
+            'id' => '74647666',
+            'user' => '74647666',
+            'password' => bcrypt('Inicio74647666'),
+            'tipo' => 3,
+            'estado' => 1
+        ]);
     }
 }

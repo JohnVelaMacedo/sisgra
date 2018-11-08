@@ -31,7 +31,7 @@
                     <!-- Branding Image -->
                     @guest 
                         <a class="navbar-brand" href="{{ url('/') }}">
-                            {{ config('app.name', 'Laravel') }}
+                            {{ config('app.name', 'Universidad Nacional de Ucayali') }}
                         </a>
                     @else   
                         @switch(Auth::user()->tipo)

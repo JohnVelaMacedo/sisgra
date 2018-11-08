@@ -121,6 +121,12 @@
                                     <p>Trabajo</p>
                                 </router-link>
                             </li>
+                            <li>
+                                <router-link to="/ver-hoja-vida">
+                                    <i class="pe-7s-note2"></i>
+                                    <p>Ver Hoja de Vida</p>
+                                </router-link>
+                            </li>
                             @break
                         @default
                             @break   

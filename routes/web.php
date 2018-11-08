@@ -36,5 +36,8 @@ Route::resource('/logueo', 'LogueoController', [
     'except' => ['create', 'show', 'edit', 'update', 'destroy']
 ]);
 
+// Entidad
+Route::resource('/entidad', 'EntidadController');
+
 // Rutas alternas
 Route::get('{path}', 'HomeController@index')->where('path', '([A-z\d-\/_.]+)?');

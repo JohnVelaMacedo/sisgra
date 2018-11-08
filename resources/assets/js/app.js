@@ -41,7 +41,8 @@ const messages = {
     max: (field, [length]) => `El campo de ${field} no debe ser mayor a ${length} caracteres.`,
     min: (field, [length]) => `El campo de ${field} debe tener al menos ${length} caracteres.`,
     numeric: (field) => `Este campo debe contener solo caracteres numéricos.`,
-    required: (field) => `El campo ${field} es obligatorio.`
+    required: (field) => `El campo ${field} es obligatorio.`,
+    url: (field) => `Este campo no es una URL válida.`
 };
 
 const locale = {
@@ -67,15 +68,8 @@ const routes = [
     { path: '/listAlumnos', component: require('./components/escuela/graduadoList.vue') },
     { path: '/example', component: require('./components/MasterComponent.vue') },
     { path: '/ver-perfil', component: require('./components/graduado/Graduado.vue') },
-    // { path: '/trabajo', component: require('./components/graduado/Trabajo.vue') },
-    { 
-        path: '/trabajo', 
-        component: require('./components/graduado/Trabajo.vue'),
-        children: [{
-            path: 'ayuda',
-            component: require('./components/graduado/Ejemplo.vue')
-        }]
-    },
+    { path: '/trabajo', component: require('./components/graduado/Trabajo.vue') },
+    { path: '/ver-hoja-vida', component: require('./components/graduado/HojaVida.vue') },
     { path: '*', component: require('./components/MasterComponent.vue') }
 ];
 
