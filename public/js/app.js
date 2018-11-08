@@ -87265,11 +87265,12 @@ if (false) {
 /* 378 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var disposed = false
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = null
+var __vue_script__ = __webpack_require__(407)
 /* template */
-var __vue_template__ = null
+var __vue_template__ = __webpack_require__(408)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -87287,6 +87288,22 @@ var Component = normalizeComponent(
   __vue_module_identifier__
 )
 Component.options.__file = "resources/assets/js/components/admin/Graduados.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-17808f07", Component.options)
+  } else {
+    hotAPI.reload("data-v-17808f07", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
 
 module.exports = Component.exports
 
@@ -90249,6 +90266,7 @@ if (false) {
 /* 405 */,
 /* 406 */,
 /* 407 */
+<<<<<<< HEAD
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -90286,6 +90304,156 @@ exports.push([module.i, "\n.datos {\r\n    padding-left: 20px;\n}\n.cuerpo {\r\n
 
 // exports
 
+=======
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            reporte: [{
+                facu: null,
+                escuela: null,
+                Descripcion: null,
+                Nombre: null,
+                AnioBachiller: null
+
+            }],
+            columns: ["facu", "escuela", "Descripcion", "Nombre", "AnioBachiller"],
+            options: {
+                headings: {
+                    facu: "Facultad",
+                    escuela: "Escuela",
+                    Descripcion: "Grado",
+                    Nombre: "Nombre de Graduado",
+                    AnioBachiller: "Año de grado"
+                },
+                sortable: ["facu", "escuela", "Descripcion", "Nombre", "AnioBachiller"],
+                filterable: ["facu", "escuela", "Descripcion", "Nombre", "AnioBachiller"]
+            }
+        };
+    },
+    created: function created() {
+        this.getData();
+    },
+
+    methods: {
+        getData: function getData() {
+            var _this = this;
+
+            this.$Progress.start();
+            axios.get('reportedatos').then(function (data) {
+                _this.reporte = data.data.resultado;
+                console.log(data);
+                _this.$Progress.finish();
+            }).catch(function (error) {
+                _this.$Progress.fail();
+                console.log('Error: ' + error);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 408 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "col-md-12" }, [
+    _c("div", { staticClass: "card" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "content table-responsive table-full-width" },
+        [
+          _c("v-client-table", {
+            attrs: {
+              data: _vm.reporte,
+              columns: _vm.columns,
+              options: _vm.options
+            }
+          })
+        ],
+        1
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "header text-center" }, [
+      _c("h4", { staticClass: "title" }, [
+        _c("b", [_vm._v("Lista General de Graduados")])
+      ]),
+      _vm._v(" "),
+      _c("p", { staticClass: "category" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-10" }, [_vm._v(" ")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-1" }, [
+        _c("a", { attrs: { href: "reporteexcel", target: "_blank" } }, [
+          _c("img", {
+            attrs: { src: "assets/img/excIcon.png", height: "40", width: "40" }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-1" }, [
+        _c("a", { attrs: { href: "reportePDF.php", target: "_blank" } }, [
+          _c("img", {
+            attrs: { src: "assets/img/pdfIcon.png", height: "40", width: "40" }
+          })
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-17808f07", module.exports)
+  }
+}
+>>>>>>> origin/master
 
 /***/ })
 /******/ ]);
