@@ -37,7 +37,7 @@ Route::get('/hoja-vida', 'GraduadoController@getHojaVida')->name('graduado.hoja_
 Route::resource('/admin', 'AdminController')->middleware('admin');
 Route::resource('/facultades', 'ReporteGraduados');
 Route::get('/facultadesdatos', 'ReporteGraduados@getDatos');
-Route::get('/reportedatos', 'ReporteGeneral@getDatos');
+Route::get('/reportedatos', 'ReporteGeneral@getDatos')git;
 Route::get('reporteexcel', 'ReporteGeneral@excel');
 Route::get('reportegraduadospdf', 'ReporteGeneral@pdf');
 
