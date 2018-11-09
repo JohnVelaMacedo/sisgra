@@ -15,29 +15,50 @@
                             <div class="seccion">
                                 <h4 class="card-title"><b>Datos Personales</b></h4>
                                 <div class="datos">
-                                    <p>Nombres y Apellidos: John Ray Vela Macedo</p>
-                                    <p>Fecha de Nacimiento: 31/12/1997</p>
-                                    <p>DNI: 70370572</p>
-                                    <p>País de Nacimiento: Perú</p>
-                                    <p>Celular: 998428074</p>
-                                    <p>Género: Masculino</p>
+                                    <p>Nombres Completos: {{ graduado.Nombre }}</p>
+                                    <p>Fecha de Nacimiento: {{ graduado.AnioNacimiento | formatDate }}</p>
+                                    <p>DNI: {{ graduado.DNI }}</p>
+                                    <p>País de Nacimiento: {{ graduado.Pais }}</p>
+                                    <p>Departamento: {{ graduado.Departamento }}</p>
+                                    <p>Dirección: {{ graduado.Dirección }}</p>
+                                    <p>Celular: {{ graduado.Telefono }}</p>
+                                    <p>Estado Civil: {{ graduado.Estado_Civil }}</p>
+                                    <p v-if="graduado.Genero == 'M'">Género: Masculino</p>
+                                    <p v-else>Género: Femenino</p>
                                 </div>
                             </div>
                             <div class="seccion">
                                 <h4 class="card-title"><b>Universidad</b></h4>
                                 <div class="datos">
-                                    <p>Facultad: Ingeniería de Sistemas</p>
-                                    <p>Escuela: Escuela Profesional de Ingeniería de Sistemas</p>
-                                    <p>Año de Ingreso: 04/12/2014</p>
-                                    <p>Año de Egreso: 04/12/2018</p>
+                                    <p>Facultad: {{ graduado.Facultad }}</p>
+                                    <p>Escuela: {{ graduado.Escuela_Profesional }}</p>
+                                    <p>Fecha de Ingreso: {{ graduado.Ingreso | formatDate }}</p>
+                                    <p>Fecha de Egreso: {{ graduado.egreso | formatDate }}</p>
+                                    <p>Año de Bachillerato: {{ graduado.AnioBachiller }}</p>
+                                    <p v-if="graduado.AnioTitulo">Año de Titulación: {{ graduado.AnioTitulo }}</p>
+                                    <p v-else>Año de Titulación: Sin datos</p>
                                 </div>
                             </div>
-                            <div class="seccion">
-                                <h4 class="card-title"><b>Datos Personales</b></h4>
+                            <div class="seccion" v-if="entidad">
+                                <h4 class="card-title"><b>Empresa</b></h4>
+                                <div class="datos">
+                                    <p>Empresa: {{ entidad.descripcion }}</p>
+                                    <p v-if="entidad.web">Web: {{ entidad.web }}</p>
+                                    <p v-else>Web: <b>Sin datos</b></p>
+                                    <p>Teléfono: {{ entidad.telefono }}</p>
+                                    <p>Rubro: {{ entidad.Rubro }}</p>
+                                    <p>Sector: {{ entidad.Sector }}</p>
+                                </div>
                             </div>
-                            <div class="seccion">
-                                <h4 class="card-title"><b>Datos Personales</b></h4>
-                                <a href="reporteexcel" target="_blank">Descargar Excel</a>
+                            <div class="seccion" v-else>
+                                <h4 class="card-title"><b>Empresa</b></h4>
+                                <div class="datos">
+                                    <p>Empresa: Sin datos</p>
+                                    <p>Web: Sin datos</p>
+                                    <p>Teléfono: Sin datos</p>
+                                    <p>Rubro: Sin datos</p>
+                                    <p>Sector: Sin datos</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -51,7 +72,7 @@
 export default {
     data() {
         return {
-            graduado: {
+            graduado: [{
                 AnioBachiller: null,
                 AnioNacimiento: null,
                 AnioTitulo: null,
@@ -71,18 +92,38 @@ export default {
                 Pais: null,
                 Telefono: null,
                 egreso: null,
-            }
+            }],
+            entidad: [{
+                Rubro: null,
+                Sector: null,
+                descripcion: null,
+                telefono: null,
+                web: null
+            }]
         }
+    },
+    mounted() {
+        this.getData();
     },
     methods: {
         getData() {
-            
+            this.$Progress.start();
+            axios.get('hoja-vida')
+                .then(data => {
+                    this.graduado = data.data.resultado[0];
+                    this.entidad = data.data.entidad[0];
+                    this.$Progress.finish();
+                    console.log(this.entidad);
+                }).catch(error => {
+                    this.$Progress.fail();
+                    console.log(error);
+                });
         }
     }
 }
 </script>
 
-<style>
+<style scoped>
 .datos {
     padding-left: 20px;
 }

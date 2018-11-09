@@ -61,7 +61,10 @@
                                 </div>
                             </div>
                             <div class="text-right">
-                                <button type="submit" v-if="data == false" class="btn btn-info btn-fill" :disabled="errors.any()">Agregar Entidad</button>
+                                <button type="submit" v-if="data == false" class="btn btn-info btn-fill" 
+                                    :disabled="errors.any()">
+                                    Agregar Entidad
+                                </button>
                                 <button type="submit" v-else class="btn btn-info btn-fill" :disabled="errors.any()">Editar Entidad</button>
                             </div>
                         </form>

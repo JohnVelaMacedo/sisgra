@@ -31,23 +31,6 @@ class ReporteGeneral extends Controller
      */
     public function excel()
     {        
-        /**
-         * toma en cuenta que para ver los mismos 
-         * datos debemos hacer la misma consulta
-        **/
-        // Excel::create('Laravel Excel', function($excel) {
-        //     $excel->sheet('Excel sheet', function($sheet) {
-
-        //         // $user = \Auth::user();
-        //         // $user = $user->id;
-        //         // $resultado = \DB::select("CALL `SP_MostrarTodos`()");
-        //         $resultado = Graduado::all();
-        //         $sheet->fromArray($resultado);
-        //         $sheet->setOrientation('landscape');
-        //     });
-        // })->export('xls');
-
-        // $resultado = Graduado::all();
         return Excel::download(new UsersExport, 'graduado.xlsx');
     }
     /**

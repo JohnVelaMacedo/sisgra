@@ -87725,6 +87725,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -87840,6 +87844,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         timer: 2000
                     });
                 }
+            });
+        },
+        changePais: function changePais(id) {
+            var _this3 = this;
+
+            axios.get('graduado/' + id).then(function (data) {
+                _this3.departamento = data.data.pais;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        changeEscuela: function changeEscuela(id) {
+            var _this4 = this;
+
+            axios.get('graduado/' + id).then(function (data) {
+                _this4.escuela = data.data.escuela;
+            }).catch(function (error) {
+                console.log(error);
             });
         }
     }
@@ -88267,23 +88289,28 @@ var render = function() {
                           staticClass: "form-control",
                           attrs: { name: "pais", id: "pais" },
                           on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.graduado,
-                                "idPais",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            }
+                            change: [
+                              function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.graduado,
+                                  "idPais",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              },
+                              function($event) {
+                                _vm.changePais(_vm.graduado.idPais)
+                              }
+                            ]
                           }
                         },
                         _vm._l(_vm.pais, function(p) {
@@ -88312,10 +88339,21 @@ var render = function() {
                               rawName: "v-model",
                               value: _vm.graduado.DepartamentoEstado,
                               expression: "graduado.DepartamentoEstado"
+                            },
+                            {
+                              name: "validate",
+                              rawName: "v-validate",
+                              value: "required",
+                              expression: "'required'"
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { name: "departamento", id: "departamento" },
+                          class: { error: _vm.errors.has("telefono") },
+                          attrs: {
+                            name: "departamento",
+                            id: "departamento",
+                            required: ""
+                          },
                           on: {
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter
@@ -88336,23 +88374,36 @@ var render = function() {
                             }
                           }
                         },
-                        _vm._l(_vm.departamento, function(d) {
-                          return _c(
-                            "option",
-                            {
-                              key: d.DepartamentoEstado,
-                              domProps: { value: d.DepartamentoEstado }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                            " +
-                                  _vm._s(d.Nombre) +
-                                  "\n                                        "
-                              )
-                            ]
-                          )
-                        })
-                      )
+                        [
+                          _vm.departamento.length == 0
+                            ? _c("option", { attrs: { value: "" } }, [
+                                _vm._v("No hay departamento disponible")
+                              ])
+                            : _vm._l(_vm.departamento, function(d) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: d.DepartamentoEstado,
+                                    domProps: { value: d.DepartamentoEstado }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                            " +
+                                        _vm._s(d.Nombre) +
+                                        "\n                                        "
+                                    )
+                                  ]
+                                )
+                              })
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _vm.errors.has("departamento")
+                        ? _c("span", { staticClass: "errorSpan" }, [
+                            _vm._v(_vm._s(_vm.errors.first("departamento")))
+                          ])
+                        : _vm._e()
                     ])
                   ]),
                   _vm._v(" "),
@@ -88376,7 +88427,8 @@ var render = function() {
                           staticClass: "form-control",
                           attrs: {
                             name: "distrito_ciudad",
-                            id: "distrito_ciudad"
+                            id: "distrito_ciudad",
+                            required: ""
                           },
                           on: {
                             change: function($event) {
@@ -88601,23 +88653,28 @@ var render = function() {
                           staticClass: "form-control",
                           attrs: { name: "facultad", id: "facultad" },
                           on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.graduado,
-                                "idFacultad",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            }
+                            change: [
+                              function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.graduado,
+                                  "idFacultad",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              },
+                              function($event) {
+                                _vm.changeEscuela(_vm.graduado.idFacultad)
+                              }
+                            ]
                           }
                         },
                         _vm._l(_vm.facultad, function(f) {
@@ -88649,7 +88706,11 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { name: "escuela", id: "escuela" },
+                          attrs: {
+                            name: "escuela",
+                            id: "escuela",
+                            required: ""
+                          },
                           on: {
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter
@@ -89491,7 +89552,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h4", { staticClass: "card-title" }, [_vm._v("Datos del Graduado")])
+      _c("h4", { staticClass: "card-title" }, [_vm._v("Datos Generales")])
     ])
   },
   function() {
@@ -89616,6 +89677,9 @@ exports.push([module.i, "\n.error[data-v-5c4ece98] {\r\n    border-color: #dc354
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
 //
 //
 //
@@ -90119,7 +90183,11 @@ var render = function() {
                                 disabled: _vm.errors.any()
                               }
                             },
-                            [_vm._v("Agregar Entidad")]
+                            [
+                              _vm._v(
+                                "\n                                Agregar Entidad\n                            "
+                              )
+                            ]
                           )
                         : _c(
                             "button",
@@ -90170,7 +90238,7 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-d6429ade"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -90213,13 +90281,13 @@ var content = __webpack_require__(398);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(17)("7029635a", content, false, {});
+var update = __webpack_require__(17)("08f90ff2", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-d6429ade\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./HojaVida.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-d6429ade\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./HojaVida.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-d6429ade\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./HojaVida.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-d6429ade\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./HojaVida.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -90237,7 +90305,7 @@ exports = module.exports = __webpack_require__(16)(false);
 
 
 // module
-exports.push([module.i, "\n.datos {\r\n    padding-left: 20px;\n}\n.cuerpo {\r\n    padding-left: 60px;\n}\r\n", ""]);
+exports.push([module.i, "\n.datos[data-v-d6429ade] {\r\n    padding-left: 20px;\n}\n.cuerpo[data-v-d6429ade] {\r\n    padding-left: 60px;\n}\r\n", ""]);
 
 // exports
 
@@ -90297,11 +90365,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            graduado: {
+            graduado: [{
                 AnioBachiller: null,
                 AnioNacimiento: null,
                 AnioTitulo: null,
@@ -90321,12 +90410,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 Pais: null,
                 Telefono: null,
                 egreso: null
-            }
+            }],
+            entidad: [{
+                Rubro: null,
+                Sector: null,
+                descripcion: null,
+                telefono: null,
+                web: null
+            }]
         };
+    },
+    mounted: function mounted() {
+        this.getData();
     },
 
     methods: {
-        getData: function getData() {}
+        getData: function getData() {
+            var _this = this;
+
+            this.$Progress.start();
+            axios.get('hoja-vida').then(function (data) {
+                _this.graduado = data.data.resultado[0];
+                _this.entidad = data.data.entidad[0];
+                _this.$Progress.finish();
+                console.log(_this.entidad);
+            }).catch(function (error) {
+                _this.$Progress.fail();
+                console.log(error);
+            });
+        }
     }
 });
 
@@ -90338,101 +90450,217 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container-fluid" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "card card-user" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("div", { staticClass: "cuerpo" }, [
+              _c("div", { staticClass: "seccion" }, [
+                _vm._m(2),
+                _vm._v(" "),
+                _c("div", { staticClass: "datos" }, [
+                  _c("p", [
+                    _vm._v("Nombres Completos: " + _vm._s(_vm.graduado.Nombre))
+                  ]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v(
+                      "Fecha de Nacimiento: " +
+                        _vm._s(
+                          _vm._f("formatDate")(_vm.graduado.AnioNacimiento)
+                        )
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v("DNI: " + _vm._s(_vm.graduado.DNI))]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v("País de Nacimiento: " + _vm._s(_vm.graduado.Pais))
+                  ]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v("Departamento: " + _vm._s(_vm.graduado.Departamento))
+                  ]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v("Dirección: " + _vm._s(_vm.graduado.Dirección))
+                  ]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v("Celular: " + _vm._s(_vm.graduado.Telefono))
+                  ]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v("Estado Civil: " + _vm._s(_vm.graduado.Estado_Civil))
+                  ]),
+                  _vm._v(" "),
+                  _vm.graduado.Genero == "M"
+                    ? _c("p", [_vm._v("Género: Masculino")])
+                    : _c("p", [_vm._v("Género: Femenino")])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "seccion" }, [
+                _vm._m(3),
+                _vm._v(" "),
+                _c("div", { staticClass: "datos" }, [
+                  _c("p", [
+                    _vm._v("Facultad: " + _vm._s(_vm.graduado.Facultad))
+                  ]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v(
+                      "Escuela: " + _vm._s(_vm.graduado.Escuela_Profesional)
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v(
+                      "Fecha de Ingreso: " +
+                        _vm._s(_vm._f("formatDate")(_vm.graduado.Ingreso))
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v(
+                      "Fecha de Egreso: " +
+                        _vm._s(_vm._f("formatDate")(_vm.graduado.egreso))
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v(
+                      "Año de Bachillerato: " +
+                        _vm._s(_vm.graduado.AnioBachiller)
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm.graduado.AnioTitulo
+                    ? _c("p", [
+                        _vm._v(
+                          "Año de Titulación: " +
+                            _vm._s(_vm.graduado.AnioTitulo)
+                        )
+                      ])
+                    : _c("p", [_vm._v("Año de Titulación: Sin datos")])
+                ])
+              ]),
+              _vm._v(" "),
+              _vm.entidad
+                ? _c("div", { staticClass: "seccion" }, [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "datos" }, [
+                      _c("p", [
+                        _vm._v("Empresa: " + _vm._s(_vm.entidad.descripcion))
+                      ]),
+                      _vm._v(" "),
+                      _vm.entidad.web
+                        ? _c("p", [_vm._v("Web: " + _vm._s(_vm.entidad.web))])
+                        : _c("p", [
+                            _vm._v("Web: "),
+                            _c("b", [_vm._v("Sin datos")])
+                          ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v("Teléfono: " + _vm._s(_vm.entidad.telefono))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v("Rubro: " + _vm._s(_vm.entidad.Rubro))]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v("Sector: " + _vm._s(_vm.entidad.Sector))])
+                    ])
+                  ])
+                : _c("div", { staticClass: "seccion" }, [
+                    _vm._m(5),
+                    _vm._v(" "),
+                    _vm._m(6)
+                  ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container-fluid" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-12" }, [
-          _c("div", { staticClass: "card card-user" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _c("h3", { staticClass: "card-title text-center" }, [
-                _vm._v("DATOS DEL GRADUADO")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("div", { staticClass: "author" }, [
-                _c("img", {
-                  staticClass: "avatar border-gray",
-                  staticStyle: { "margin-top": "70px" },
-                  attrs: {
-                    src: "assets/img/usuario-defecto.png",
-                    height: "100",
-                    width: "100"
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "cuerpo" }, [
-                _c("div", { staticClass: "seccion" }, [
-                  _c("h4", { staticClass: "card-title" }, [
-                    _c("b", [_vm._v("Datos Personales")])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "datos" }, [
-                    _c("p", [
-                      _vm._v("Nombres y Apellidos: John Ray Vela Macedo")
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [_vm._v("Fecha de Nacimiento: 31/12/1997")]),
-                    _vm._v(" "),
-                    _c("p", [_vm._v("DNI: 70370572")]),
-                    _vm._v(" "),
-                    _c("p", [_vm._v("País de Nacimiento: Perú")]),
-                    _vm._v(" "),
-                    _c("p", [_vm._v("Celular: 998428074")]),
-                    _vm._v(" "),
-                    _c("p", [_vm._v("Género: Masculino")])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "seccion" }, [
-                  _c("h4", { staticClass: "card-title" }, [
-                    _c("b", [_vm._v("Universidad")])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "datos" }, [
-                    _c("p", [_vm._v("Facultad: Ingeniería de Sistemas")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "Escuela: Escuela Profesional de Ingeniería de Sistemas"
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [_vm._v("Año de Ingreso: 04/12/2014")]),
-                    _vm._v(" "),
-                    _c("p", [_vm._v("Año de Egreso: 04/12/2018")])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "seccion" }, [
-                  _c("h4", { staticClass: "card-title" }, [
-                    _c("b", [_vm._v("Datos Personales")])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "seccion" }, [
-                  _c("h4", { staticClass: "card-title" }, [
-                    _c("b", [_vm._v("Datos Personales")])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    { attrs: { href: "reporteexcel", target: "_blank" } },
-                    [_vm._v("Descargar Excel")]
-                  )
-                ])
-              ])
-            ])
-          ])
-        ])
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", { staticClass: "card-title text-center" }, [
+        _vm._v("DATOS DEL GRADUADO")
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "author" }, [
+      _c("img", {
+        staticClass: "avatar border-gray",
+        staticStyle: { "margin-top": "70px" },
+        attrs: {
+          src: "assets/img/usuario-defecto.png",
+          height: "100",
+          width: "100"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h4", { staticClass: "card-title" }, [
+      _c("b", [_vm._v("Datos Personales")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h4", { staticClass: "card-title" }, [
+      _c("b", [_vm._v("Universidad")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h4", { staticClass: "card-title" }, [
+      _c("b", [_vm._v("Empresa")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h4", { staticClass: "card-title" }, [
+      _c("b", [_vm._v("Empresa")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "datos" }, [
+      _c("p", [_vm._v("Empresa: Sin datos")]),
+      _vm._v(" "),
+      _c("p", [_vm._v("Web: Sin datos")]),
+      _vm._v(" "),
+      _c("p", [_vm._v("Teléfono: Sin datos")]),
+      _vm._v(" "),
+      _c("p", [_vm._v("Rubro: Sin datos")]),
+      _vm._v(" "),
+      _c("p", [_vm._v("Sector: Sin datos")])
     ])
   }
 ]

@@ -4,7 +4,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Datos del Graduado</h4>
+                        <h4 class="card-title">Datos Generales</h4>
                     </div>
                     <div class="card-body">
                         <form>
