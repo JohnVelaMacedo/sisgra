@@ -33,6 +33,7 @@ Route::resource('/facultades', 'ReporteGraduados');
 Route::get('/facultadesdatos', 'ReporteGraduados@getDatos');
 Route::get('/reportedatos', 'ReporteGeneral@getDatos');
 Route::get('reporteexcel', 'ReporteGeneral@excel');
+Route::get('reportegraduadospdf', 'ReporteGeneral@pdf');
 
 // Verificar el logueo
 Route::resource('/logueo', 'LogueoController', [

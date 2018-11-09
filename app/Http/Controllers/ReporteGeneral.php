@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Exports\UsersExport;
+use App\Exports\ReporteGraduados;
 use Illuminate\Http\Request;
 
-use Maatwebsite\Excel\Facades\Excel;   
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade as PDF;   
 
 class ReporteGeneral extends Controller
 {
@@ -31,24 +32,22 @@ class ReporteGeneral extends Controller
      */
     public function excel()
     {        
+       return Excel::download(new ReporteGraduados, 'graduado.xlsx');
+    }
+    /*
+    Funcion para crear un PDF
+    */
+    public function pdf()
+    {        
         /**
          * toma en cuenta que para ver los mismos 
          * datos debemos hacer la misma consulta
         **/
-        // Excel::create('Laravel Excel', function($excel) {
-        //     $excel->sheet('Excel sheet', function($sheet) {
+        $query = $this->getDatos();
 
-        //         // $user = \Auth::user();
-        //         // $user = $user->id;
-        //         // $resultado = \DB::select("CALL `SP_MostrarTodos`()");
-        //         $resultado = Graduado::all();
-        //         $sheet->fromArray($resultado);
-        //         $sheet->setOrientation('landscape');
-        //     });
-        // })->export('xls');
+        $pdf = PDF::loadView('reportegraduadospdf', compact('query'));
 
-        // $resultado = Graduado::all();
-        return Excel::download(new UsersExport, 'graduado.xlsx');
+        return $pdf->download('listado.pdf');
     }
     /**
      * Store a newly created resource in storage.
@@ -113,4 +112,5 @@ class ReporteGeneral extends Controller
 
         return compact('resultado');
     }
+    
 }

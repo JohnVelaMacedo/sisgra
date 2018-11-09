@@ -20,7 +20,7 @@
 </head>
 <body>
     <div class="wrapper" id="app">
-        <div class="sidebar" data-color="azure" data-image="assets/img/sidebar-5.jpg">
+        <div class="sidebar" data-color="azure" data-image="assets/img/unu.jpg">
             <div class="sidebar-wrapper">
                 <div class="logo">
                     <a class="simple-text" style="text-decoration: none">
