@@ -22,7 +22,7 @@
                                         <!-- <a  target="_blank" slot="Acciones" slot-scope="props" :href="props.row.Acciones" class="pe-7s-pen">ASD</a>
                                         <a  target="_blank" :href="props.row.Acciones" class="pe-7s-pen">DSA</a> -->
                                         <button class="pe-7s-pen" data-toggle="tooltip" v-on:click="editGraduado(props.row.DNI)" data-placement="left" title="Editar Graduado"></button>
-                                        <button class="pe-7s-look" data-toggle="tooltip" data-placement="left" title="Ver Hoja de Vida"></button>
+                                        <button class="pe-7s-look" data-toggle="tooltip" v-on:click="viewGraduado(props.row.DNI)" data-placement="left" title="Ver Hoja de Vida"></button>
                                     </div>
                                 </v-client-table>
                             </div>
@@ -423,9 +423,87 @@
 	            </div>
 	         </div>
 	    	</div>
-            <!-- <pre>
-                {{graduadoIn}}
-            </pre> -->
+            
+            <div class="row" v-show="op2">
+            <div class="col-md-12">
+                <div class="card card-user">
+                    <div class="card-header">
+                        <h3 class="card-title text-center">DATOS DEL GRADUADO</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="author">
+                            <img class="avatar border-gray" src="assets/img/usuario-defecto.png" height="100" width="100" 
+                                style="margin-top: 70px">
+                        </div>
+                        <div class="cuerpo">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="seccion">
+                                <h4 class="card-title"><b>Datos Personales</b></h4>
+                                <div class="datos">
+                                    <p>Nombres Completos: {{ graduadoH.Nombre }}</p>
+                                    <p>Fecha de Nacimiento: {{ graduadoH.AnioNacimiento | formatDate }}</p>
+                                    <p>DNI: {{ graduadoH.DNI }}</p>
+                                    <p>País de Nacimiento: {{ graduadoH.Pais }}</p>
+                                    <p>Departamento: {{ graduadoH.Departamento }}</p>
+                                    <p>Dirección: {{ graduadoH.Dirección }}</p>
+                                    <p>Celular: {{ graduadoH.Telefono }}</p>
+                                    <p>Estado Civil: {{ graduadoH.Estado_Civil }}</p>
+                                    <p v-if="graduadoH.Genero == 'M'">Género: Masculino</p>
+                                    <p v-else>Género: Femenino</p>
+                                </div>
+                            </div>
+                                </div>
+                            <div class="col-lg-6">
+                                <div class="seccion">
+                                <h4 class="card-title"><b>Universidad</b></h4>
+                                <div class="datos">
+                                    <p>Facultad: {{ graduadoH.Facultad }}</p>
+                                    <p>Escuela: {{ graduadoH.Escuela_Profesional }}</p>
+                                    <p>Fecha de Ingreso: {{ graduadoH.Ingreso | formatDate }}</p>
+                                    <p>Fecha de Egreso: {{ graduadoH.egreso | formatDate }}</p>
+                                    <p>Año de Bachillerato: {{ graduadoH.AnioBachiller }}</p>
+                                    <p v-if="graduadoH.AnioTitulo">Año de Titulación: {{ graduadoH.AnioTitulo }}</p>
+                                    <p v-else>Año de Titulación: Sin datos</p>
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                            <div class="seccion" v-if="entidad">
+                                <h4 class="card-title"><b>Empresa</b></h4>
+                                <div class="datos">
+                                    <p>Empresa: {{ entidad.descripcion }}</p>
+                                    <p v-if="entidad.web">Web: {{ entidad.web }}</p>
+                                    <p v-else>Web: <b>Sin datos</b></p>
+                                    <p>Teléfono: {{ entidad.telefono }}</p>
+                                    <p>Rubro: {{ entidad.Rubro }}</p>
+                                    <p>Sector: {{ entidad.Sector }}</p>
+                                </div>
+                            </div>
+                            <div class="seccion" v-else>
+                                <h4 class="card-title"><b>Empresa</b></h4>
+                                <div class="datos">
+                                    <p>Empresa: Sin datos</p>
+                                    <p>Web: Sin datos</p>
+                                    <p>Teléfono: Sin datos</p>
+                                    <p>Rubro: Sin datos</p>
+                                    <p>Sector: Sin datos</p>
+                                    
+                                </div>
+                            </div>
+                            <div class="seccion">
+                                <div class="datos">
+                                    <button type="button" class="btn btn-primary btn-fill pull-right" v-on:click="op2=false;op0=true">Cerrar</button>
+                                    <br><br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -459,6 +537,27 @@ export default {
                 egreso: null,
                 }
             ],
+            graduadoH: {
+                AnioBachiller: null,
+                AnioNacimiento: null,
+                AnioTitulo: null,
+                CantHijos: null,
+                Correo: null,
+                DNI: null,
+                Departamento: null,
+                Dirección: null,
+                Discapacidad: null,
+                DistritoCiudad: null,
+                Escuela_Profesional: null,
+                Estado_Civil: null,
+                Facultad: null,
+                Genero: null,
+                Ingreso: null,
+                Nombre: null,
+                Pais: null,
+                Telefono: null,
+                egreso: null,
+            },
             graduadoIn: {
                 BachilleratoIn: null,
                 fNacimientoIn: null,
@@ -510,6 +609,7 @@ export default {
             op: false,
             op0:true,
             op1:false,
+            op2:false,
             pais: [],
             facultad: [],
             escuela: [],
@@ -597,7 +697,7 @@ export default {
                     this.user = data.data.user;
                     // this.$Progress.finish();
                     // console.log(data.data.resultado[0]);
-                    console.log(this.graduado);
+                    //console.log(this.graduado);
                 }).catch(error => {
                     console.log('Ocurrio un error ' + error);
                     this.$Progress.fail();
@@ -695,6 +795,27 @@ export default {
                     });
                 
             
+        },
+        viewGraduado(id){
+            axios.get(`/get-graduado/${id}`)
+                .then(data => {
+                    this.graduadoH = data.data.resultado[0];
+                    // this.pais = data.data.pais;
+                    // this.facultad = data.data.facultad;
+                    // this.escuela = data.data.escuela;
+                    // this.departamento = data.data.departamento;
+                    // this.estado_civil = data.data.estado_civil;
+                    // this.discapacidad = data.data.discapacidad;
+                    this.user = data.data.user;
+                    // this.$Progress.finish();
+                    // console.log(data.data.resultado[0]);
+                    //console.log(this.graduado);
+                    this.op0=false;
+                    this.op2=true;
+                }).catch(error => {
+                    console.log('Ocurrio un error ' + error);
+                    this.$Progress.fail();
+                });
         }
     }
 }

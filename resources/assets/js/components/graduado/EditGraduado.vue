@@ -79,7 +79,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="pais">Pais:</label>
-                                        <select name="pais" id="pais" class="form-control" v-model="graduado.idPais">
+                                        <select name="pais" id="pais" class="form-control" v-model="graduado.idPais" @change="changePais(graduado.idPais)">
                                             <option v-for="p in pais" :value="p.idPais" :key="p.idPais">{{ p.Nombre }}</option>
                                         </select>
                                     </div>
@@ -88,18 +88,21 @@
                                     <div class="form-group">
                                         <label for="departamento">Departamento:</label>
                                         <select v-model="graduado.DepartamentoEstado" name="departamento" 
-                                            id="departamento" class="form-control">
-                                            <option v-for="d in departamento" :value="d.DepartamentoEstado" :key="d.DepartamentoEstado">
+                                            id="departamento" class="form-control" required
+                                            v-validate="'required'" :class="{'error': errors.has('telefono')}">
+                                            <option v-if="departamento.length == 0" value="">No hay departamento disponible</option>
+                                            <option v-else v-for="d in departamento" :value="d.DepartamentoEstado" :key="d.DepartamentoEstado">
                                                 {{ d.Nombre }}
                                             </option>
                                         </select>
+                                        <span v-if="errors.has('departamento')" class="errorSpan">{{ errors.first('departamento') }}</span>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="distrito_ciudad">Ciudad:</label>
                                         <select name="distrito_ciudad" id="distrito_ciudad" v-model="graduado.DistritoCiudad" 
-                                            class="form-control">
+                                            class="form-control" required>
                                             <option value="calleria">Calleria</option> 
                                             <option value="coronel-portillo">Coronel Portillo</option> 
                                             <option value="manantay">Manantay</option> 
@@ -139,7 +142,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="facultad">Facultad:</label>
-                                        <select class="form-control" v-model="graduado.idFacultad" name="facultad" id="facultad">
+                                        <select class="form-control" v-model="graduado.idFacultad" name="facultad" id="facultad"
+                                            @change="changeEscuela(graduado.idFacultad)">
                                             <option v-for="f in facultad" :key="f.id" :value="f.id">{{ f.Nombre }}</option>
                                         </select>
                                     </div>
@@ -147,7 +151,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="escuela">Escuela:</label>
-                                        <select class="form-control" v-model="graduado.idEscuela" name="escuela" id="escuela">
+                                        <select class="form-control" v-model="graduado.idEscuela" name="escuela" id="escuela" required>
                                             <option v-for="e in escuela" :key="e.idEscuela" :value="e.idEscuela">{{ e.Nombre }}</option>
                                         </select>
                                     </div>
@@ -297,6 +301,22 @@ export default {
                     });
                 }
             });
+        },
+        changePais(id) {
+            axios.get(`graduado/${id}`)
+                .then(data => {
+                    this.departamento = data.data.pais;
+                }).catch(error => {
+                    console.log(error);
+                });
+        },
+        changeEscuela(id) {
+            axios.get(`graduado/${id}`)
+                .then(data => {
+                    this.escuela = data.data.escuela;
+                }).catch(error => {
+                    console.log(error);
+                });
         }
     }
 }
