@@ -62,7 +62,6 @@ class GraduadoController extends Controller
         $escuela = EscuelaProfesional::all();
         $estado_civil = EstadoCivil::all();
         $discapacidad = Discapacidad::all();
-        $graduadosEscuela = Graduado::where("");
 
         $resultado = \DB::select("SELECT g.DNI, g.Nombre, g.Telefono, g.Correo, g.AnioNacimiento, g.Genero, p.idPais, p.Nombre as 'Pais', 
                                 de.Nombre AS 'Departamento', de.DepartamentoEstado, g.DistritoCiudad, g.Dirección, 
@@ -79,6 +78,54 @@ class GraduadoController extends Controller
                                 WHERE DNI = ?", [$user]);
 
         return compact('resultado', 'pais', 'departamento', 'facultad', 'escuela', 'estado_civil', 'discapacidad', 'user');
+    }
+
+    public function getGraduado($id)
+    {
+        $user = \Auth::user();
+        $user = $user->id;
+        $resultado = \DB::select("SELECT g.DNI, g.Nombre, g.Telefono, g.Correo, g.AnioNacimiento, g.Genero, p.idPais, p.Nombre as Pais, 
+                        de.Nombre AS Departamento, de.DepartamentoEstado, g.DistritoCiudad, g.Dirección, 
+                        ec.descripcion AS 'Estado_Civil', ec.id AS 'idEstadoCivil' ,g.CantHijos, d.descripcion AS Discapacidad, 
+                        d.id AS 'idDiscapacidad', f.Nombre AS 'Facultad', f.id AS 'idFacultad', ep.Nombre AS 'Escuela_Profesional', 
+                        ep.idEscuela AS 'idEscuela', g.Ingreso, g.egreso, g.AnioBachiller, g.AnioTitulo 
+                        FROM graduado g
+                        INNER JOIN pais p ON p.idPais = g.PaisResidencia
+                        INNER JOIN departamentoestado de ON de.DepartamentoEstado = g.EstadoDepartamento
+                        INNER JOIN estadocivil ec ON ec.id = g.EstadoCivil
+                        INNER JOIN discapacidad d ON d.id = g.Discapacidad
+                        INNER JOIN facultad f ON f.id = g.Facultad
+                        INNER JOIN escuelaprofesional ep ON ep.idEscuela = g.Escuela
+                        WHERE DNI = ?", [$id]);
+        return compact('resultado','user');
+    }
+    public function getHojaVida()
+    {
+        $user = \Auth::user();
+        $user = $user->id;
+
+        $resultado = \DB::select("SELECT g.DNI, g.Nombre, g.Telefono, g.Correo, g.AnioNacimiento, g.Genero, p.idPais, p.Nombre as 'Pais', 
+                                de.Nombre AS 'Departamento', de.DepartamentoEstado, g.DistritoCiudad, g.Dirección, 
+                                ec.descripcion AS 'Estado_Civil', ec.id AS 'idEstadoCivil' ,g.CantHijos, d.descripcion AS 'Discapacidad', 
+                                d.id AS 'idDiscapacidad', f.Nombre AS 'Facultad', f.id AS 'idFacultad', ep.Nombre AS 'Escuela_Profesional', 
+                                ep.idEscuela AS 'idEscuela', g.Ingreso, g.egreso, g.AnioBachiller, g.AnioTitulo 
+                                FROM graduado g
+                                INNER JOIN pais p ON p.idPais = g.PaisResidencia
+                                INNER JOIN departamentoestado de ON de.DepartamentoEstado = g.EstadoDepartamento
+                                INNER JOIN estadocivil ec ON ec.id = g.EstadoCivil
+                                INNER JOIN discapacidad d ON d.id = g.Discapacidad
+                                INNER JOIN facultad f ON f.id = g.Facultad
+                                INNER JOIN escuelaprofesional ep ON ep.idEscuela = g.Escuela
+                                WHERE DNI = ?", [$user]);
+        
+        $entidad = \DB::select("SELECT e.descripcion, r.descripcion as 'Rubro', e.telefono, e.web, s.descripcion as 'Sector' 
+                                FROM empresa_graduado eg 
+                                INNER JOIN entidad e ON e.id = eg.idEntidad 
+                                INNER JOIN rubro r ON r.id = e.idRubro 
+                                INNER JOIN sector s ON s.id = e.idSector 
+                                WHERE eg.idGraduado = ?", [$user]);
+
+        return compact('resultado', 'entidad');
     }
 
     /**
@@ -99,7 +146,56 @@ class GraduadoController extends Controller
      */
     public function store(Request $request)
     {
+        $graduado = new Graduado();
+        $graduado->DNI = $request['graduadoIn']['DNIIn'];
+        $graduado->Nombre = $request['graduadoIn']['NombresIn'];
+        $graduado->Telefono = $request['graduadoIn']['TelefonoIn'];
+        $graduado->Correo = $request['graduadoIn']['CorreoIn'];
+        $graduado->AnioNacimiento = $request['graduadoIn']['fNacimientoIn'];
+        $graduado->Genero = $request['graduadoIn']['SexoIn'];
+        $graduado->PaisResidencia = $request['graduadoIn']['PaisIn'];
+        $graduado->EstadoDepartamento = $request['graduadoIn']['DepartamentoIn'];
+        $graduado->DistritoCiudad = $request['graduadoIn']['DistritoCiudadIn'];
+        $graduado->Dirección = $request['graduadoIn']['DirecciónIn'];
+        $graduado->EstadoCivil = $request['graduadoIn']['EstadoCivilIn'];
+        $graduado->CantHijos = $request['graduadoIn']['CantHijosIn'];
+        $graduado->Discapacidad = $request['graduadoIn']['DiscapacidadIn'];
+        $graduado->Facultad = $request['graduadoIn']['FacultadIn'];
+        $graduado->Escuela = $request['graduadoIn']['EscuelaIn'];
+        $graduado->Ingreso = $request['graduadoIn']['fIngresoIn'];
+        $graduado->egreso = $request['graduadoIn']['fEgresoIn'];
+        $graduado->AnioBachiller = $request['graduadoIn']['BachilleratoIn'];
+        $graduado->AnioTitulo = $request['graduadoIn']['TitulacionIn'];
+
+        $grado_graduado = new GradoGraduado();
+        if ($request['graduadoIn']['TitulacionIn']) {
+            $grado_graduado->Grado = 2;
+        } else {
+            $grado_graduado->Grado = 1;
+        }
+        $grado_graduado->idGraduado = $request['graduadoIn']['DNIIn'];
+        $grado_graduado->anioGraduacion = $request['graduadoIn']['BachilleratoIn'];
+
+        // Creando User
+        $user = new User();
+        $user->id = $request['graduadoIn']['DNIIn'];
+        $user->user = $request['graduadoIn']['DNIIn'];
+        $user->password = bcrypt('Inicio'.$request['graduadoIn']['DNIIn']);
+        $user->tipo = 4;
+        $user->estado = 0;
+
+        $graduado->save();
+        $grado_graduado->save();
+        $user->save();
         
+        if($graduado && $grado_graduado) {
+            return 'ambos correcto';
+        }elseif($graduado && !$grado_graduado){
+            return 'solo graduado';
+        }elseif($grado_graduado && !$graduado){
+            return 'solo grado';
+        }
+        return 'error';
     }
 
     /**
@@ -110,7 +206,9 @@ class GraduadoController extends Controller
      */
     public function show($id)
     {
-        //
+        $pais = DepartamentoEstado::where('idPais', $id)->get();
+        $escuela = EscuelaProfesional::where('idFacultad', $id)->get();
+        return compact('pais', 'escuela');
     }
 
     /**

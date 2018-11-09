@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     return view('auth.login');
-});
+                            });
 
 Auth::routes();
 
@@ -21,11 +21,17 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Graduado
 Route::resource('/graduado', 'GraduadoController', [
-    'except' => ['destroy', 'edit', 'show', 'store', 'create']
-]);
+    'except' => ['destroy', 'edit', 'show', 'create']
+    ])->middleware('guest');
 Route::resource('/escuela', 'escuelaController');
 
 Route::get('/datos', 'GraduadoController@getDatos')->name('graduado.datos');
+Route::get('/get-graduado/{id}', 'GraduadoController@getGraduado')->name('graduado.getGraduado');
+
+Route::resource('/escuela', 'escuelaController');
+
+Route::get('/datos', 'GraduadoController@getDatos')->name('graduado.datos');
+Route::get('/hoja-vida', 'GraduadoController@getHojaVida')->name('graduado.hoja_vida');
 
 // Admin
 Route::resource('/admin', 'AdminController')->middleware('admin');
