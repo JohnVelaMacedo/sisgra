@@ -93852,7 +93852,7 @@ if (false) {
 var disposed = false
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = null
+var __vue_script__ = __webpack_require__(415)
 /* template */
 var __vue_template__ = __webpack_require__(414)
 /* template functional */
@@ -93900,41 +93900,63 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container-fluid" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "header" }, [
+            _c("h3", [
+              _vm._v("Cargar Datos a " + _vm._s(_vm.detalleEscuela.Nombre))
+            ]),
+            _vm._v(" "),
+            _c("p", [_vm._v("Subir datos de graduados al sistema")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "well" }, [
+            _c(
+              "form",
+              {
+                staticClass: "form",
+                attrs: { role: "form" },
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.sendExcel($event)
+                  }
+                }
+              },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "btn btn-info btn-fill pull-right",
+                  attrs: { type: "submit", disabled: _vm.errors.any() }
+                }),
+                _vm._v(" "),
+                _c("br"),
+                _c("br")
+              ]
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container-fluid" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-12" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "header" }, [
-              _c("h3", [_vm._v("Cargar Datos")]),
-              _vm._v(" "),
-              _c("p", [_vm._v("Subir datos de graduados al sistema")])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "well" }, [
-              _c("form", { attrs: { action: "" } }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("p", { staticClass: "help-block" }, [
-                    _vm._v(
-                      "Seleccione un archivo .xlsx para cargar datos al sistema"
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    attrs: { type: "file", id: "exampleInputFile" }
-                  })
-                ])
-              ])
-            ])
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "form-group" }, [
+      _c("p", { staticClass: "help-block" }, [
+        _vm._v("Seleccione un archivo .xlsx para cargar datos al sistema")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { type: "file", id: "excelG" }
+      })
     ])
   }
 ]
@@ -93946,6 +93968,97 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-5b83a3a8", module.exports)
   }
 }
+
+/***/ }),
+/* 415 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            detalleEscuela: []
+        };
+    },
+    created: function created() {
+        this.getData();
+    },
+
+    methods: {
+        getData: function getData() {
+            var _this = this;
+
+            axios.get('escuela').then(function (data) {
+                _this.detalleEscuela = data.data.escuelaDetalle;
+                console.log(data);
+            }).catch(function (error) {
+                return console.log('Ocurrio un error ' + error);
+            });
+        },
+        sendExcel: function sendExcel() {
+
+            var data = new FormData();
+            data.append('foo', 'bar');
+            data.append('excelG', document.getElementById('excelG').files[0]);
+            var config = {
+                onUploadProgress: function onUploadProgress(progressEvent) {
+                    var percentCompleted = Math.round(progressEvent.loaded * 100 / progressEvent.total);
+                }
+            };
+            this.$Progress.start();
+            axios.post('/up-graduado', data, config).then(function (res) {
+                if (res.data == "success") {
+                    this.$Progress.finish();
+                    swal({
+                        position: 'top-end',
+                        type: 'success',
+                        title: 'Datos ingresados correctamente',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                }
+            }).catch(function (err) {
+                swal({
+                    position: 'top-end',
+                    type: 'error',
+                    title: 'No se pudo realizar operación!',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+                //   output.className = 'container text-danger';
+                //   output.innerHTML = err.message;
+            });
+        }
+    }
+});
 
 /***/ })
 /******/ ]);

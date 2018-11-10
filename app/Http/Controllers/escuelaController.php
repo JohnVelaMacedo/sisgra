@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Persona;
 use App\Graduado;
 use App\EscuelaProfesional;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\graduados2Import;
+
 class escuelaController extends Controller
 {
     /**
@@ -45,7 +48,15 @@ class escuelaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->hasFile('excelG')){
+            $path=$request->file('excelG')->getRealPath();
+            Excel::import(new graduados2Import, request()->file('excelG'));
+            return 'success'; 
+        }else{
+            return "No! It's not a File";
+        }
+
+        
     }
 
     /**

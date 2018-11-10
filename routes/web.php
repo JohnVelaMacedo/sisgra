@@ -28,6 +28,8 @@ Route::resource('/escuela', 'escuelaController');
 Route::get('/datos', 'GraduadoController@getDatos')->name('graduado.datos');
 Route::get('/get-graduado/{id}', 'GraduadoController@getGraduado')->name('graduado.getGraduado');
 
+Route::post('/up-graduado', 'escuelaController@store')->name('graduado.upGraduado');
+
 Route::resource('/escuela', 'escuelaController');
 
 Route::get('/datos', 'GraduadoController@getDatos')->name('graduado.datos');
