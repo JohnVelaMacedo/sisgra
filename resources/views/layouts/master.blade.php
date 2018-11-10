@@ -72,27 +72,21 @@
                             @break
                         @case(3)
                             <li>
-                                <router-link to="/home">
-                                    <i class="pe-7s-graph"></i>
-                                    <p>Dashboard</p>
-                                </router-link>
-                            </li>
-                            <li>
-                                <router-link to="/listAlumnos">
+                                <router-link to="/escuelaLista">
                                     <i class="pe-7s-user"></i>
-                                    <p>Alumnos</p>
+                                    <p>Lista Graduados</p>
                                 </router-link>
                             </li>
                             <li>
-                                <router-link to="/editar-director">
+                                <router-link to="/escuelaSubir">
                                     <i class="pe-7s-cloud-upload"></i>
-                                    <p>Agregar Graduados por Año</p>
+                                    <p>Cargar Graduados</p>
                                 </router-link>
                             </li>
                             <li>
                                 <router-link to="/editar-director">
                                     <i class="pe-7s-users"></i>
-                                    <p>Actualizar Graduados por Año</p>
+                                    <p>Actualizar Graduados</p>
                                 </router-link>
                             </li>
                             @break

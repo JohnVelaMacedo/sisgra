@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Persona;
 use App\Graduado;
+use App\EscuelaProfesional;
 class escuelaController extends Controller
 {
     /**
@@ -17,12 +18,13 @@ class escuelaController extends Controller
         $user = \Auth::user();
         $user = $user->id;
         $persona=Persona::where('DNI',$user)->first();
+        $escuelaDetalle=EscuelaProfesional::where('idEscuela',$persona->idEscuela)->first();
 
         // Obteniendo el tipo de Estado Civil
         $graduadoEscuela = Graduado::where('Escuela', $persona->idEscuela)->get();
 
         // return view('graduado.index', compact('graduado', 'discapacidad', 'escuela', 'facultad', 'departamento', 'estado_civil'));
-        return compact('persona','graduadoEscuela');
+        return compact('escuelaDetalle','persona','graduadoEscuela');
     }
 
     /**

@@ -10,8 +10,8 @@
                                         <!-- <router-link to="/foo" tag="button">foo</router-link> -->
                                     </div>
                                     <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-4 col-lg-4">
-                                        <h4 class="title">Lista Graduados</h4>
-                                        <p class="category">Graduados de le escuela</p>
+                                        <center><h4 class="title">{{detalleEscuela.Nombre}}</h4></center>
+                                        <center><p class="category">Lista de graduados</p></center>
                                     </div>
                                 </div>
                             </div>
@@ -613,6 +613,7 @@ export default {
             pais: [],
             facultad: [],
             escuela: [],
+            detalleEscuela: [],
             departamento: [],
             estado_civil: [],
             discapacidad: [],
@@ -651,6 +652,7 @@ export default {
             axios.get('escuela')
                 .then(data => {
                    this.graduadoT=data.data.graduadoEscuela;
+                   this.detalleEscuela=data.data.escuelaDetalle;
                    this.graduadoT.forEach((element,i) => {
                        this.graduadoT[i].Acciones=this.graduadoT[i].DNI;
                    });
