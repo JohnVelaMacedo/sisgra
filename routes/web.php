@@ -22,11 +22,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Graduado
 Route::resource('/graduado', 'GraduadoController', [
     'except' => ['destroy', 'edit', 'show', 'create']
-    ])->middleware('guest');
+    ]);
 Route::resource('/escuela', 'escuelaController');
 
 Route::get('/datos', 'GraduadoController@getDatos')->name('graduado.datos');
 Route::get('/get-graduado/{id}', 'GraduadoController@getGraduado')->name('graduado.getGraduado');
+
+Route::get('/get-entidad/{id}', 'EntidadController@getEntidad')->name('entidad.getEntidad');
 
 Route::post('/up-graduado', 'escuelaController@store')->name('graduado.upGraduado');
 

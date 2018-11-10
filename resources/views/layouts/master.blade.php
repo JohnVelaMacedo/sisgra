@@ -84,9 +84,15 @@
                                 </router-link>
                             </li>
                             <li>
-                                <router-link to="/editar-director">
-                                    <i class="pe-7s-users"></i>
-                                    <p>Actualizar Graduados</p>
+                                <router-link to="/agregarSector">
+                                    <i class="pe-7s-news-paper"></i>
+                                    <p>Sectores</p>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="/agregarRubro">
+                                    <i class="pe-7s-albums"></i>
+                                    <p>Rubros</p>
                                 </router-link>
                             </li>
                             @break

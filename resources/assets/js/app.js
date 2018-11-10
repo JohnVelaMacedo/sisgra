@@ -66,6 +66,8 @@ const routes = [
     { path: '/Graduados', component: require('./components/admin/Graduados.vue') },
     { path: '/editar-perfil', component: require('./components/graduado/EditGraduado.vue') },
     { path: '/escuelaLista', component: require('./components/escuela/graduadoList.vue') },
+    { path: '/agregarSector', component: require('./components/escuela/sector.vue') },
+    { path: '/agregarRubro', component: require('./components/escuela/rubro.vue') },
     { path: '/escuelaSubir', component: require('./components/escuela/graduadoSubir.vue') },
     { path: '/example', component: require('./components/MasterComponent.vue') }, 
     { path: '/ver-perfil', component: require('./components/graduado/Graduado.vue') },

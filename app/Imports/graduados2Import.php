@@ -7,6 +7,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithValidation;
+use Illuminate\Validation\Rule;
 
 class graduados2Import implements ToModel, WithValidation
 {
@@ -49,28 +50,26 @@ class graduados2Import implements ToModel, WithValidation
     public function rules(): array
     {
         return [
-            '0' => Rule::in(['patrick@maatwebsite.nl']),
-            '1' => Rule::in(['patrick@maatwebsite.nl']),
-            '2' => Rule::in(['patrick@maatwebsite.nl']),
-            '3' => Rule::in(['patrick@maatwebsite.nl']),
-            '4' => Rule::in(['patrick@maatwebsite.nl']),
-            '5' => Rule::in(['patrick@maatwebsite.nl']),
-            '6' => Rule::in(['patrick@maatwebsite.nl']),
-            '7' => Rule::in(['patrick@maatwebsite.nl']),
-            '8' => Rule::in(['patrick@maatwebsite.nl']),
-            '9' => Rule::in(['patrick@maatwebsite.nl']),
-            '10' => Rule::in(['patrick@maatwebsite.nl']),
-            '11' => Rule::in(['patrick@maatwebsite.nl']),
-            '12' => Rule::in(['patrick@maatwebsite.nl']),
-            '13' => Rule::in(['patrick@maatwebsite.nl']),
-            '14' => Rule::in(['patrick@maatwebsite.nl']),
-            '15' => Rule::in(['patrick@maatwebsite.nl']),
-            '16' => Rule::in(['patrick@maatwebsite.nl']),
-            '17' => Rule::in(['patrick@maatwebsite.nl']),
-            '18' => Rule::in(['patrick@maatwebsite.nl']),
+            'DNI' => Rule::in(['patrick@maatwebsite.nl']),
+            'Nombre' => Rule::in(['patrick@maatwebsite.nl']),
+            'Telefono' => Rule::in(['patrick@maatwebsite.nl']),
+            'Correo' => Rule::in(['patrick@maatwebsite.nl']),
+            'AnioNacimiento' => Rule::in(['patrick@maatwebsite.nl']),
+            'Genero' => Rule::in(['patrick@maatwebsite.nl']),
+            'PaisResidencia' => Rule::in(['patrick@maatwebsite.nl']),
+            'EstadoDepartamento' => Rule::in(['patrick@maatwebsite.nl']),
+            'DistritoCiudad' => Rule::in(['patrick@maatwebsite.nl']),
+            'Dirección' => Rule::in(['patrick@maatwebsite.nl']),
+            'EstadoCivil' => Rule::in(['patrick@maatwebsite.nl']),
+            'CantHijos' => Rule::in(['patrick@maatwebsite.nl']),
+            'Discapacidad' => Rule::in(['patrick@maatwebsite.nl']),
+            'Facultad' => Rule::in(['patrick@maatwebsite.nl']),
+            'Escuela' => Rule::in(['patrick@maatwebsite.nl']),
+            'Ingreso' => Rule::in(['patrick@maatwebsite.nl']),
+            'egreso' => Rule::in(['patrick@maatwebsite.nl']),
+            'AnioBachiller' => Rule::in(['patrick@maatwebsite.nl']),
+            'AnioTitulo' => Rule::in(['patrick@maatwebsite.nl']),
 
-             // Above is alias for as it always validates in batches
-             '*.1' => Rule::in(['patrick@maatwebsite.nl']),
         ];
     }
 

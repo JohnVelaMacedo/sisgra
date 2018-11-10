@@ -52,11 +52,11 @@ export default {
                 var percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
                 }
             }
-            this.$Progress.start();
+            // this.$Progress.start();
             axios.post('/up-graduado', data, config)
             .then(function (res) {
                 if(res.data=="success"){
-                    this.$Progress.finish();
+                    // this.$Progress.finish();
                     swal({
                                 position: 'top-end',
                                 type: 'success',
@@ -67,12 +67,13 @@ export default {
                 }
             })
             .catch(function (err) {
+                // this.$Progress.fail();
                 swal({
                                 position: 'top-end',
                                 type: 'error',
-                                title: 'No se pudo realizar operación!',
+                                title: 'No se pudo realizar operación!: '+err,
                                 showConfirmButton: false,
-                                timer: 2000
+                                timer: 6000
                             });
             //   output.className = 'container text-danger';
             //   output.innerHTML = err.message;

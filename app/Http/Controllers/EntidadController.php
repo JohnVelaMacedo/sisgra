@@ -27,6 +27,19 @@ class EntidadController extends Controller
         return compact('data', 'rubro', 'sector', 'user', 'empresa_graduado'); 
     }
 
+    public function getEntidad($id){
+        $rubro = Rubro::all();
+        $sector = Sector::all();
+        $empresa_graduado = EmpresaGraduado::where('idGraduado', $id)->first();
+        if(!is_null($empresa_graduado)){
+            $data = Entidad::where('id',$empresa_graduado->idEntidad)->first();
+        }else{
+            $data =array();
+        }
+        
+        return compact('data', 'rubro', 'sector', 'empresa_graduado');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
