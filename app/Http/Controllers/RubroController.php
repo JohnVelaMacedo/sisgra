@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Rubro;
 
 class RubroController extends Controller
 {
@@ -13,7 +14,8 @@ class RubroController extends Controller
      */
     public function index()
     {
-        //
+        $rubro=Rubro::all();
+        return compact('rubro');
     }
 
     /**
@@ -34,7 +36,17 @@ class RubroController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $sector = Rubro::updateOrCreate(
+            ['id' => $request['rubroForm']['id']],
+            [
+                'descripcion' => $request['rubroForm']['descripcion']
+            ]
+        );
+        if($sector){
+            return "OK";
+        }else{
+            return "FAIL";
+        }
     }
 
     /**
@@ -54,9 +66,19 @@ class RubroController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        $rubro = Rubro::updateOrCreate(
+            ['id' => $request['rubroEdit']['id']],
+            [
+                'descripcion' => $request['rubroEdit']['descripcion']
+            ]
+        );
+        if($rubro){
+            return "OK";
+        }else{
+            return "FAIL";
+        }
     }
 
     /**
@@ -79,6 +101,11 @@ class RubroController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $eliminar=Rubro::where('id',$id)->delete();
+        if($eliminar){
+            return "OK";
+        }else{
+            return "FAIL";
+        }
     }
 }

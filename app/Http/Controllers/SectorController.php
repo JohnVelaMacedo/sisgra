@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Sector;
 use Illuminate\Http\Request;
 
 class SectorController extends Controller
@@ -13,7 +14,8 @@ class SectorController extends Controller
      */
     public function index()
     {
-        //
+        $sector=Sector::all();
+        return compact('sector');
     }
 
     /**
@@ -34,7 +36,17 @@ class SectorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $sector = Sector::updateOrCreate(
+            ['id' => $request['sectorForm']['id']],
+            [
+                'descripcion' => $request['sectorForm']['descripcion']
+            ]
+        );
+        if($sector){
+            return "OK";
+        }else{
+            return "FAIL";
+        }
     }
 
     /**
@@ -45,7 +57,7 @@ class SectorController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -54,9 +66,19 @@ class SectorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        $sector = Sector::updateOrCreate(
+            ['id' => $request['sectorEdit']['id']],
+            [
+                'descripcion' => $request['sectorEdit']['descripcion']
+            ]
+        );
+        if($sector){
+            return "OK";
+        }else{
+            return "FAIL";
+        }
     }
 
     /**
@@ -79,6 +101,11 @@ class SectorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $eliminar=Sector::where('id',$id)->delete();
+        if($eliminar){
+            return "OK";
+        }else{
+            return "FAIL";
+        }
     }
 }
