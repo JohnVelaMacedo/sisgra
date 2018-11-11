@@ -182,6 +182,7 @@ class GraduadoController extends Controller
         } else {
             $grado_graduado->Grado = 1;
         }
+        
         $grado_graduado->idGraduado = $request['graduadoIn']['DNIIn'];
         $grado_graduado->anioGraduacion = $request['graduadoIn']['BachilleratoIn'];
 
@@ -195,7 +196,7 @@ class GraduadoController extends Controller
 
         $graduado->save();
         $grado_graduado->save();
-        $user->save();
+        $user->save(); 
 
         $entidad = Entidad::updateOrCreate(
             ['id' => $request['entidadAdd']['id']],

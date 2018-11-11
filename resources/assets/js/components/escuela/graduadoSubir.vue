@@ -16,6 +16,17 @@
                             <input type="submit" :disabled="errors.any()" class="btn btn-info btn-fill pull-right">
                             <br><br>
                         </form>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <a type="button" href="reporteexcel" target="_blank">Descargar Formato Ejemplo de Archivo</a>
+                                <p><strong>IMPORTANTE!! </strong> El archivo a subir debe tener el mismo orden de columnas del ejemplo formato.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4">
+                                <div class="loader" v-show="op"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -25,14 +36,17 @@
 
 
 <script>
+
 export default {
     data() {
         return {
-            detalleEscuela: []
+            detalleEscuela: [],
+            op:false
         }
     },
     created() {
         this.getData();
+        this.op=false;
     },
     methods: {
         getData() {
@@ -53,6 +67,7 @@ export default {
                 }
             }
             // this.$Progress.start();
+            this.op=true;
             axios.post('/up-graduado', data, config)
             .then(function (res) {
                 if(res.data=="success"){
@@ -64,6 +79,9 @@ export default {
                                 showConfirmButton: false,
                                 timer: 2000
                             });
+                            setTimeout(() => {
+                                location.reload();
+                            }, 1500);
                 }
             })
             .catch(function (err) {
@@ -75,10 +93,30 @@ export default {
                                 showConfirmButton: false,
                                 timer: 6000
                             });
+                            console.log(err);
             //   output.className = 'container text-danger';
             //   output.innerHTML = err.message;
             });
+            
+        },
+        qswitch(o){
+            this.op=o;
         }
     }
 }
 </script>
+<style>
+.loader {
+    border: 16px solid #dbd8d8; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+</style>

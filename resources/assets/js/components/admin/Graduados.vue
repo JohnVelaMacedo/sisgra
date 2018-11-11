@@ -9,7 +9,7 @@
                 <div class="col-md-10">&nbsp;</div>
                 <div class="col-md-1"><a href="reporteexcel" target="_blank"><img src="assets/img/excIcon.png" height="40" width="40"></a></div>
                 <div class="col-md-1"><a href="reportegraduadospdf" target="_blank"><img src="assets/img/pdfIcon.png" height="40" width="40"></a></div>
-            </div>
+            </div> 
             <div class="content table-responsive table-full-width">
                 <v-client-table :data="reporte" :columns="columns" :options="options">
                     
