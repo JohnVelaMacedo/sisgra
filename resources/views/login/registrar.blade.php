@@ -53,10 +53,10 @@
                             <div class="form-row">
                                 <div class="col-md-4">
                                     <label for="pais" class="mb-0">País: </label>
-                                    <select class="form-control px-0" required name="pais" id="pais">
+                                    <select class="form-control px-0" required name="pais" id="pais" >
                                         <option value="">Elija una opción</option> 
                                         @foreach ($pais as $p)
-                                            <option value="{{$p->idPais}}">{{ $p->Nombre }}</option>
+                                            <option value="{{ $p->idPais }}">{{ $p->Nombre }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -64,9 +64,9 @@
                                     <label for="pais" class="mb-0">Departamento: </label>
                                     <select class="form-control px-0" required name="departamento" id="departamento">
                                         <option value="">Elija una opción</option> 
-                                        @foreach ($departamento as $d)
-                                            <option value="{{$d->DepartamentoEstado}}">{{ $d->Nombre }}</option>
-                                        @endforeach
+                                        {{-- @foreach ($departamento as $d)
+                                            <option value="{{ $d->DepartamentoEstado }}">{{ $d->Nombre }}</option>
+                                        @endforeach --}}
                                     </select>
                                 </div>
                                 <div class="col-md-4">
@@ -126,9 +126,9 @@
                                     <label for="escuela" class="mb-0">Escuela: </label>
                                     <select class="form-control px-0" required name="escuela" id="escuela">
                                         <option value="">Elija una opción</option> 
-                                        @foreach ($escuela as $e)
+                                        {{-- @foreach ($escuela as $e)
                                             <option value="{{$e->idEscuela}}">{{ $e->Nombre }}</option>
-                                        @endforeach
+                                        @endforeach --}}
                                     </select>
                                 </div>
                             </div>

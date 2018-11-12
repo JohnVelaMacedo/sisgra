@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     return view('auth.login');
-                            });
+});
 
 Auth::routes();
 
@@ -21,8 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Graduado
 Route::resource('/graduado', 'GraduadoController', [
-    'except' => ['destroy', 'edit', 'show', 'create']
-    ]);
+    'except' => ['destroy', 'edit', 'create']
+]);
 Route::resource('/escuela', 'escuelaController');
 Route::resource('/getSector', 'SectorController');
 Route::resource('/getRubro', 'RubroController');
@@ -60,6 +60,8 @@ Route::get('reportegraduadospdf', 'ReporteGeneral@pdf');
 Route::resource('/logueo', 'LogueoController', [
     'except' => ['create', 'show', 'edit', 'update', 'destroy']
 ]);
+Route::get('/getDepa/{id}', 'LogueoController@getDepa');
+Route::get('/getEsc/{id}', 'LogueoController@getEsc');
 
 // Entidad
 Route::resource('/entidad', 'EntidadController');

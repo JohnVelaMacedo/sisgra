@@ -19,12 +19,15 @@ class EntidadController extends Controller
     {
         $user = \Auth::user();
         $user = $user->id;
-        $data = Entidad::all();
         $rubro = Rubro::all();
         $sector = Sector::all();
         $empresa_graduado = EmpresaGraduado::where('idGraduado', $user)->first();
+        if ($empresa_graduado != null) {
+            $data = Entidad::where('id', $empresa_graduado->idEntidad)->get();
+            return compact('data', 'rubro', 'sector', 'user');     
+        }
 
-        return compact('data', 'rubro', 'sector', 'user', 'empresa_graduado'); 
+        return compact('rubro', 'sector', 'user'); 
     }
 
     public function getEntidad($id){

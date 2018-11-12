@@ -86,4 +86,16 @@ class LogueoController extends Controller
         
         return redirect('/');
     }
+
+    public function getDepa($id)
+    {
+        $departamento = DepartamentoEstado::where('idPais', $id)->get();
+        return $departamento;
+    }
+
+    public function getEsc($id)
+    {
+        $escuela = EscuelaProfesional::where('idFacultad', $id)->get();
+        return $escuela;
+    }
 }
