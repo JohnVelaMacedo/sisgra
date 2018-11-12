@@ -8,4 +8,5 @@ class Persona extends Model
 {
     public $table="persona";
     protected $fillable=['DNI','Nombre','Apellidos','Telefono','Direccion','idFacultad','idEscuela','Correo','estado'];
+    public $timestamps = false;
 }

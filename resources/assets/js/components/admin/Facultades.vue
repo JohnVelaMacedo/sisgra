@@ -5,6 +5,11 @@
                 <h4 class="title"><b>Lista General de Graduados</b></h4>
                 <p class="category"></p>
             </div>
+            <div class="row">
+                <div class="col-md-10">&nbsp;</div>
+                <div class="col-md-1"><a href="reportegeneralexcel" target="_blank"><img src="assets/img/excIcon.png" height="40" width="40"></a></div>
+                <div class="col-md-1"><a href="reportegeneralpdf" target="_blank"><img src="assets/img/pdfIcon.png" height="40" width="40"></a></div>
+            </div>
             <div class="content table-responsive table-full-width">
                 <v-client-table :data="reporte" :columns="columns" :options="options">
                     

@@ -8,4 +8,6 @@ class Facultad extends Model
 {
     public $table = 'facultad';
     protected $fillable = ['id', 'Nombre'];
+    public $timestamps=false;
+    
 }
