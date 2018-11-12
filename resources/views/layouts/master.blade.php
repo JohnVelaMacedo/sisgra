@@ -20,7 +20,7 @@
 </head>
 <body>
     <div class="wrapper" id="app">
-        <div class="sidebar" data-color="azure" data-image="assets/img/unu.jpg">
+        <div class="sidebar" data-color="green" data-image="assets/img/unu.jpg">
             <div class="sidebar-wrapper">
                 <div class="logo">
                     <a class="simple-text" style="text-decoration: none">
@@ -44,21 +44,27 @@
                                 </router-link>
                             </li>
                             <li>
-                                <router-link to="/Facultades">
+                                <router-link to="/AgregarFacultades">
                                     <i class="pe-7s-user"></i>
-                                    <p>Graduados por Facultades</p>
+                                    <p>Agregar</p>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="/Facultades">
+                                    <i class="pe-7s-look"></i>
+                                    <p>Lista General</p>
                                 </router-link>
                             </li>
                             <li>
                                 <router-link to="/Graduados">
-                                    <i class="pe-7s-user"></i>
+                                    <i class="pe-7s-look"></i>
                                     <p>Graduados Detallado</p>
                                 </router-link>
                             </li>
                             @break
                         @case(2)
                             <li>
-                                <router-link to="/home">
+                                <router-link to="/jefedepartamento">
                                     <i class="pe-7s-graph"></i>
                                     <p>Dashboard</p>
                                 </router-link>
@@ -67,6 +73,24 @@
                                 <router-link to="/editar-jefe">
                                     <i class="pe-7s-user"></i>
                                     <p>Editar Perfil</p>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="/AgregarEscuela">
+                                    <i class="pe-7s-user"></i>
+                                    <p>Agregar</p>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="/ReporteFacultad">
+                                    <i class="pe-7s-look"></i>
+                                    <p>Reporte por Facultad</p>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="/ReporteEscuela">
+                                    <i class="pe-7s-look"></i>
+                                    <p>Reporte Detallado</p>
                                 </router-link>
                             </li>
                             @break

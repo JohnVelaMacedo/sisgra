@@ -8,4 +8,5 @@ class EscuelaProfesional extends Model
 {
     public $table = 'escuelaprofesional';
     protected $fillable = ['idEscuela', 'idFacultad', 'Nombre'];
+    public $timestamps=false;
 }
