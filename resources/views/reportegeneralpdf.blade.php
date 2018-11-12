@@ -9,7 +9,7 @@
     
 </head>
 <?php
-$Reporte = DB::select("CALL `SP_MostrarTodos`()");
+$Reporte = DB::select("CALL `SP_MostrarCantidadPorEscuelaAnio`()");
 ?>
 <style>
 body{
@@ -90,24 +90,23 @@ body{
     <center>
     <h1>Universidad Nacional de ucayali</h1>
     <p><img src="assets/img/unu.png" height="80" width="60"></p>
-    <h2>Lista De Egresados Detallado</h2>
+    <h2>Lista De Graduados General</h2>
     
     <hr>
     <table class="table table-striped">
      <tr class="tr" align="center">
+        <td class="td">Año Bachiller</td>
         <td class="td">Facultad</td>
         <td class="td">Escuela</td>
-        <td class="td">Grado</td>
-        <td class="td">Nombres</td>
-        <td class="td">Año Bachiller</td>
+        <td class="td">Cantidad</td>
+        
      </tr>
      @foreach ($Reporte as $report)
         <tr>
+            <td>{{$report->bach}}</td>
             <td>{{$report->facu}}</td>
-            <td>{{$report->escuela}}</td>
-            <td>{{$report->Descripcion}}</td>
-            <td>{{$report->Nombre}}</td>
-            <td>{{$report->AnioBachiller}}</td>
+            <td>{{$report->esc}}</td>
+            <td>{{$report->cant}}</td>
         </tr>
      @endforeach     
     </table>

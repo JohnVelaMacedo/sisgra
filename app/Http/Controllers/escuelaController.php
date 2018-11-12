@@ -8,6 +8,7 @@ use App\Entidad;
 use App\EmpresaGraduado;
 use App\Graduado;
 use App\EscuelaProfesional;
+use App\User;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\graduados2Import;
 
@@ -152,4 +153,42 @@ class escuelaController extends Controller
         return 'error';
     }
 
+    public function getDatos()
+    {
+        $user       = \Auth::user();
+        $user       = $user->id;
+        $encargado  = \DB::select('CALL `SP_EncargadoEscuela`(?)',[
+            $user
+        ]);
+        $escuela    = \DB::select('CALL `SP_Escuelas`(?)',[
+            $user
+        ]);
+        return compact('encargado','escuela');
+    }
+    public function ingresarEscuela(Request $request)
+    {
+        $idFacultad     = $this->idFacultad();
+        $esc            = new EscuelaProfesional();
+        $var;
+        foreach ($idFacultad as $fac) {
+            $var = $fac->idFacultad;
+        }
+        $esc->Nombre    = $request->facu;
+        $esc->idFacultad= $var;
+        $esc->save();
+        // return "bien";
+        
+        // return $idFacultad;
+    }
+    public function idEscuela()
+    {
+
+    }
+    public function idFacultad()
+    {
+        $user       = \Auth::user();
+        $user       = $user->id;
+        $var = \DB::select('CALL `SP_idFacultad`(?)',[$user]);
+        return $var;
+    }
 }

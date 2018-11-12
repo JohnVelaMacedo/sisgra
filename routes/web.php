@@ -55,10 +55,19 @@ Route::get('/hoja-vida', 'GraduadoController@getHojaVida')->name('graduado.hoja_
 // Admin
 Route::resource('/admin', 'AdminController')->middleware('admin');
 Route::resource('/facultades', 'ReporteGraduados');
+Route::get('/agregarfacultad', 'FacultadController@getDatos');
+Route::resource('/facultad', 'FacultadController');
+Route::resource('/persona', 'personaController');
 Route::get('/facultadesdatos', 'ReporteGraduados@getDatos');
 Route::get('/reportedatos', 'ReporteGeneral@getDatos');
 Route::get('reporteexcel', 'ReporteGeneral@excel');
 Route::get('reportegraduadospdf', 'ReporteGeneral@pdf');
+Route::get('reportegeneralexcel', 'ReporteGraduados@excel');
+Route::get('reportegeneralpdf', 'ReporteGraduados@pdf');
+
+//jefe de departamento
+Route::get('agregarescuela', 'escuelacontroller@getDatos');
+Route::post('addescuela', 'escuelacontroller@ingresarEscuela');
 
 // Verificar el logueo
 Route::resource('/logueo', 'LogueoController', [

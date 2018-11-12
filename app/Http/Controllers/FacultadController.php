@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Exports\ReporteGeneral;
-use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
-use Barryvdh\DomPDF\Facade as PDF;
 
-class ReporteGraduados extends Controller
+use Illuminate\Http\Request;
+use App\Facultad;
+
+class FacultadController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,10 @@ class ReporteGraduados extends Controller
      */
     public function index()
     {
-        //
+        $user = \Auth::user();
+        $user = $user->id;
+        $facultad = Facultad::all();
+        return compact('facultad');
     }
 
     /**
@@ -36,7 +38,17 @@ class ReporteGraduados extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $facu = new Facultad();
+        $facu->Nombre=$request->facu;
+        $facu->save();
+        //     "Nombre"=>$request['facu']
+        // ]);
+        // if($facu){
+        //     return "correcto";
+        // }
+        
+        // return $request['facu'];
+        return "bien";
     }
 
     /**
@@ -83,32 +95,12 @@ class ReporteGraduados extends Controller
     {
         //
     }
-    public function excel()
-    {        
-       return Excel::download(new ReporteGeneral, 'Reporte.xlsx');
-    }
-    /*
-    Funcion para crear un PDF
-    */
-    public function pdf()
-    {        
-        /**
-         * toma en cuenta que para ver los mismos 
-         * datos debemos hacer la misma consulta
-        **/
-        $query = $this->getDatos();
-
-        $pdf = PDF::loadView('reportegeneralpdf', compact('query'));
-
-        return $pdf->download('Reporte.pdf');
-    }
-
     public function getDatos()
     {
         $user = \Auth::user();
         $user = $user->id;
-        $resultado = \DB::select("CALL `SP_MostrarCantidadPorEscuelaAnio`()");
-
-        return compact('resultado');
+        $encargado = \DB::select('CALL `SP_encargadoFacultad`()');
+        $facultad = Facultad::all();
+        return compact('encargado', 'facultad');
     }
 }
