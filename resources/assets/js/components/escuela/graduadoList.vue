@@ -13,6 +13,8 @@
                                         <center><h4 class="title">{{detalleEscuela.Nombre}}</h4></center>
                                         <center><p class="category">Lista de graduados</p></center>
                                     </div>
+                                    <div class="col-md-1 col-lg-1 col-lg-offset-1"><a href="excelEscuela" target="_blank"><img src="assets/img/excIcon.png" height="40" width="40"></a></div>
+                                    <div class="col-md-1"><a href="reporteEscuelapdf" target="_blank"><img src="assets/img/pdfIcon.png" height="40" width="40"></a></div>
                                 </div>
                             </div>
                             <div class="content table-responsive table-full-width">
@@ -886,7 +888,7 @@ export default {
             });
         },
         editProfile() {
-                    axios.put(`graduado/${this.user}`, {
+                    axios.put(`updateGraduadoEscuela`, {
                         graduado: this.graduado,
                         entidadEdit:this.entidadEdit,
                         user: this.user

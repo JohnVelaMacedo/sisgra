@@ -18,7 +18,7 @@
                         </form>
                         <div class="row">
                             <div class="col-lg-12">
-                                <a type="button" href="reporteexcel" target="_blank">Descargar Formato Ejemplo de Archivo</a>
+                                <a type="button" href="ejemploFormato" target="_blank">Descargar Formato Ejemplo de Archivo</a>
                                 <p><strong>IMPORTANTE!! </strong> El archivo a subir debe tener el mismo orden de columnas del ejemplo formato.</p>
                             </div>
                         </div>

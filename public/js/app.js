@@ -89592,6 +89592,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -89884,7 +89886,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         editProfile: function editProfile() {
-            axios.put('graduado/' + this.user, {
+            axios.put('updateGraduadoEscuela', {
                 graduado: this.graduado,
                 entidadEdit: this.entidadEdit,
                 user: this.user
@@ -90002,7 +90004,11 @@ var render = function() {
                     ])
                   ],
                   1
-                )
+                ),
+                _vm._v(" "),
+                _vm._m(0),
+                _vm._v(" "),
+                _vm._m(1)
               ])
             ]),
             _vm._v(" "),
@@ -90073,7 +90079,7 @@ var render = function() {
         _c("div", { staticClass: "col-md-12" }, [
           _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "content" }, [
-              _vm._m(0),
+              _vm._m(2),
               _vm._v(" "),
               _c(
                 "form",
@@ -92648,16 +92654,16 @@ var render = function() {
       [
         _c("div", { staticClass: "col-md-12" }, [
           _c("div", { staticClass: "card card-user" }, [
-            _vm._m(1),
+            _vm._m(3),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
-              _vm._m(2),
+              _vm._m(4),
               _vm._v(" "),
               _c("div", { staticClass: "cuerpo" }, [
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-lg-6" }, [
                     _c("div", { staticClass: "seccion" }, [
-                      _vm._m(3),
+                      _vm._m(5),
                       _vm._v(" "),
                       _c("div", { staticClass: "datos" }, [
                         _c("p", [
@@ -92718,7 +92724,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "col-lg-6" }, [
                     _c("div", { staticClass: "seccion" }, [
-                      _vm._m(4),
+                      _vm._m(6),
                       _vm._v(" "),
                       _c("div", { staticClass: "datos" }, [
                         _c("p", [
@@ -92770,7 +92776,7 @@ var render = function() {
                 _vm._v(" "),
                 _vm.entidad
                   ? _c("div", { staticClass: "seccion" }, [
-                      _vm._m(5),
+                      _vm._m(7),
                       _vm._v(" "),
                       _c("div", { staticClass: "datos" }, [
                         _c("p", [
@@ -92798,9 +92804,9 @@ var render = function() {
                       ])
                     ])
                   : _c("div", { staticClass: "seccion" }, [
-                      _vm._m(6),
+                      _vm._m(8),
                       _vm._v(" "),
-                      _vm._m(7)
+                      _vm._m(9)
                     ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "seccion" }, [
@@ -92833,6 +92839,30 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-1 col-lg-1 col-lg-offset-1" }, [
+      _c("a", { attrs: { href: "excelEscuela", target: "_blank" } }, [
+        _c("img", {
+          attrs: { src: "assets/img/excIcon.png", height: "40", width: "40" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-1" }, [
+      _c("a", { attrs: { href: "reporteEscuelapdf", target: "_blank" } }, [
+        _c("img", {
+          attrs: { src: "assets/img/pdfIcon.png", height: "40", width: "40" }
+        })
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -94552,7 +94582,9 @@ var staticRenderFns = [
       _c("div", { staticClass: "col-lg-12" }, [
         _c(
           "a",
-          { attrs: { type: "button", href: "reporteexcel", target: "_blank" } },
+          {
+            attrs: { type: "button", href: "ejemploFormato", target: "_blank" }
+          },
           [_vm._v("Descargar Formato Ejemplo de Archivo")]
         ),
         _vm._v(" "),

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Persona;
+use App\Entidad;
+use App\EmpresaGraduado;
 use App\Graduado;
 use App\EscuelaProfesional;
 use Maatwebsite\Excel\Facades\Excel;
@@ -55,8 +57,6 @@ class escuelaController extends Controller
         }else{
             return "No! It's not a File";
         }
-
-        
     }
 
     /**
@@ -103,4 +103,53 @@ class escuelaController extends Controller
     {
         //
     }
+
+    public function updateEscuelaGraduado(Request $request)
+    {
+        // Actualizando Graduado
+        $graduado = \DB::update("UPDATE graduado SET Nombre = ?, Telefono = ?, Correo = ?, AnioNacimiento = ?, 
+                Genero = ?, PaisResidencia = ?, EstadoDepartamento = ?, DistritoCiudad = ?, Dirección = ?, EstadoCivil = ?, 
+                CantHijos = ?, Discapacidad = ?, Facultad = ?, Escuela = ?, Ingreso = ?, egreso = ?, AnioBachiller = ?, AnioTitulo = ? 
+                WHERE DNI = ?", [
+                        $request->graduado['Nombre'], $request->graduado['Telefono'], $request->graduado['Correo'],
+                        $request->graduado['AnioNacimiento'], $request->graduado['Genero'], $request->graduado['idPais'],
+                        $request->graduado['DepartamentoEstado'], $request->graduado['DistritoCiudad'], $request->graduado['Dirección'],
+                        $request->graduado['idEstadoCivil'], $request->graduado['CantHijos'], $request->graduado['idDiscapacidad'],
+                        $request->graduado['idFacultad'], $request->graduado['idEscuela'], $request->graduado['Ingreso'],
+                        $request->graduado['egreso'], $request->graduado['AnioBachiller'], $request->graduado['AnioTitulo'],
+                        $request->graduado['DNI']
+                ]);
+                    
+                $entidad = Entidad::updateOrCreate(
+                    ['id' => $request['entidadEdit']['id']],
+                    [
+                        'descripcion' => $request['entidadEdit']['descripcion'],
+                        'idRubro' => $request['entidadEdit']['idRubro'],
+                        'telefono' => $request['entidadEdit']['telefono'],
+                        'web' => $request['entidadEdit']['web'],
+                        'idSector' => $request['entidadEdit']['idSector']
+                    ]
+                );
+                
+                $empresa = EmpresaGraduado::updateOrCreate(['idGraduado' => $request->graduado['DNI'], 'idEntidad' => $entidad->id]);
+        
+        // Actualizando GradoGraduado
+        if (strlen($request->graduado['AnioTitulo']) > 0) {
+            $grado = 2;
+        } else {
+            $grado = 1;
+        }
+
+        $grado_graduado = \DB::update('UPDATE gradograduado SET Grado = ?, AnioGraduacion = ? WHERE idGraduado = ?', [
+            $grado,
+            $request->graduado['AnioBachiller'],
+            $request->graduado['DNI']
+        ]);
+
+        if($graduado || $entidad) {
+            return 'correcto';
+        }
+        return 'error';
+    }
+
 }

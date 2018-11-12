@@ -97,7 +97,7 @@ class GraduadoController extends Controller
                         de.Nombre AS Departamento, de.DepartamentoEstado, g.DistritoCiudad, g.Dirección, 
                         ec.descripcion AS 'Estado_Civil', ec.id AS 'idEstadoCivil' ,g.CantHijos, d.descripcion AS Discapacidad, 
                         d.id AS 'idDiscapacidad', f.Nombre AS 'Facultad', f.id AS 'idFacultad', ep.Nombre AS 'Escuela_Profesional', 
-                        ep.idEscuela AS 'idEscuela', g.Ingreso, g.egreso, g.AnioBachiller, g.AnioTitulo 
+                        ep.idEscuela AS 'idEscuela', g.Ingreso, g.egreso, g.AnioBachiller, g.AnioTitulo
                         FROM graduado g
                         INNER JOIN pais p ON p.idPais = g.PaisResidencia
                         INNER JOIN departamentoestado de ON de.DepartamentoEstado = g.EstadoDepartamento

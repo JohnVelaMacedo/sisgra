@@ -23,6 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/graduado', 'GraduadoController', [
     'except' => ['destroy', 'edit', 'show', 'create']
     ]);
+Route::put('updateGraduadoEscuela','escuelaController@updateEscuelaGraduado')->name('escuela.updateGraduado');
 Route::resource('/escuela', 'escuelaController');
 Route::resource('/getSector', 'SectorController');
 Route::resource('/getRubro', 'RubroController');
@@ -44,6 +45,9 @@ Route::get('/eliminarSector/{id}', 'SectorController@destroy')->name('sector.del
 Route::get('/eliminarRubro/{id}', 'RubroController@destroy')->name('rubro.deleteRubro');
 
 Route::resource('/escuela', 'escuelaController');
+Route::get('ejemploFormato', 'ReporteEscuela@excelEjemplo');
+Route::get('excelEscuela', 'ReporteEscuela@excel');
+Route::get('reporteEscuelapdf', 'ReporteEscuela@pdf');
 
 Route::get('/datos', 'GraduadoController@getDatos')->name('graduado.datos');
 Route::get('/hoja-vida', 'GraduadoController@getHojaVida')->name('graduado.hoja_vida');
