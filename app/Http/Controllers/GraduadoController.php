@@ -269,18 +269,18 @@ class GraduadoController extends Controller
                         $request->graduado['DNI']
                 ]);
                     
-                $entidad = Entidad::updateOrCreate(
-                    ['id' => $request['entidadEdit']['id']],
-                    [
-                        'descripcion' => $request['entidadEdit']['descripcion'],
-                        'idRubro' => $request['entidadEdit']['idRubro'],
-                        'telefono' => $request['entidadEdit']['telefono'],
-                        'web' => $request['entidadEdit']['web'],
-                        'idSector' => $request['entidadEdit']['idSector']
-                    ]
-                );
+                // $entidad = Entidad::updateOrCreate(
+                //     ['id' => $request['entidadEdit']['id']],
+                //     [
+                //         'descripcion' => $request['entidadEdit']['descripcion'],
+                //         'idRubro' => $request['entidadEdit']['idRubro'],
+                //         'telefono' => $request['entidadEdit']['telefono'],
+                //         'web' => $request['entidadEdit']['web'],
+                //         'idSector' => $request['entidadEdit']['idSector']
+                //     ]
+                // );
                 
-                $empresa = EmpresaGraduado::updateOrCreate(['idGraduado' => $request->graduado['DNI'], 'idEntidad' => $entidad->id]);
+                // $empresa = EmpresaGraduado::updateOrCreate(['idGraduado' => $request->graduado['DNI'], 'idEntidad' => $entidad->id]);
         
         // Actualizando GradoGraduado
         if (strlen($request->graduado['AnioTitulo']) > 0) {
@@ -295,7 +295,8 @@ class GraduadoController extends Controller
             $request->graduado['DNI']
         ]);
 
-        if($graduado || $entidad) {
+        // if($graduado || $entidad) {
+        if ($graduado) {
             return 'correcto';
         }
         return 'error';

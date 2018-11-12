@@ -11,7 +11,7 @@
                         <form role="form" class="form" @submit.prevent="sendExcel">
                             <div class="form-group">
                                 <p class="help-block">Seleccione un archivo .xlsx para cargar datos al sistema</p>
-                                <input type="file" id="excelG" class="form-control">
+                                <input type="file" id="excelG" class="form-control" required>
                             </div>
                             <input type="submit" :disabled="errors.any()" class="btn btn-info btn-fill pull-right">
                             <br><br>
@@ -23,8 +23,8 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4">
-                                <div class="loader" v-show="op"></div>
+                            <div class="" style="display: table; margin: 0 auto;">
+                                <div class="loader text-center" v-show="op"></div>
                             </div>
                         </div>
                     </div>
@@ -46,7 +46,7 @@ export default {
     },
     created() {
         this.getData();
-        this.op=false;
+        this.op = false;
     },
     methods: {
         getData() {
@@ -63,14 +63,17 @@ export default {
             data.append('excelG', document.getElementById('excelG').files[0]);
             var config = {
                 onUploadProgress: function(progressEvent) {
-                var percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
+                    var percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
                 }
             }
             // this.$Progress.start();
             this.op=true;
             axios.post('/up-graduado', data, config)
-            .then(function (res) {
+            .then(res => {
+                console.log(res);
                 if(res.data=="success"){
+                    this.op=false;
+                    document.getElementById('excelG').value='';
                     // this.$Progress.finish();
                     swal({
                                 position: 'top-end',
@@ -80,7 +83,7 @@ export default {
                                 timer: 2000
                             });
                             setTimeout(() => {
-                                location.reload();
+                                //location.reload();
                             }, 1500);
                 }
             })

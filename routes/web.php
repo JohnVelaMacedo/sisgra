@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     return view('auth.login');
-                            });
+});
 
 Auth::routes();
 
@@ -24,6 +24,7 @@ Route::resource('/graduado', 'GraduadoController', [
     'except' => ['destroy', 'edit', 'show', 'create']
     ]);
 Route::put('updateGraduadoEscuela','escuelaController@updateEscuelaGraduado')->name('escuela.updateGraduado');
+
 Route::resource('/escuela', 'escuelaController');
 Route::resource('/getSector', 'SectorController');
 Route::resource('/getRubro', 'RubroController');
@@ -73,6 +74,8 @@ Route::post('addescuela', 'escuelacontroller@ingresarEscuela');
 Route::resource('/logueo', 'LogueoController', [
     'except' => ['create', 'show', 'edit', 'update', 'destroy']
 ]);
+Route::get('/getDepa/{id}', 'LogueoController@getDepa');
+Route::get('/getEsc/{id}', 'LogueoController@getEsc');
 
 // Entidad
 Route::resource('/entidad', 'EntidadController');

@@ -132,6 +132,44 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
+        $('#pais').change(function(e) {
+            var id = $(this).val();
+            $('#departamento').html(`<option value="">Elija una opción</option>`);
+            axios.get(`/getDepa/${id}`)
+                .then(data => {
+                    if (data.data.length !== 0) {
+                        let datos = data.data;
+                        datos.forEach((e, i) => {
+                            let departamento = document.getElementById('departamento');
+                            departamento.innerHTML += `<option value="${e.DepartamentoEstado}">${e.Nombre}</option>`;
+                        });
+                    } else {
+                        console.log('no hay datos');
+                    }
+                }).catch(error => {
+                    console.log(error);
+                })
+        }); 
+
+        $('#facultad').change(function(e) {
+            var id = $(this).val();
+            $('#escuela').html(`<option value="">Elija una opción</option>`);
+            axios.get(`/getEsc/${id}`)
+                .then(data => {
+                    if (data.data.length !== 0) {
+                        let datos = data.data;
+                        datos.forEach((e, i) => {
+                            let facultad = document.getElementById('escuela');
+                            escuela.innerHTML += `<option value="${e.idEscuela}">${e.Nombre}</option>`;
+                        });
+                    } else {
+                        console.log('no hay datos');
+                    }
+                }).catch(error => {
+                    console.log(error);
+                });
+        });
+
         function valida(e){
             tecla = (document.all) ? e.keyCode : e.which;
 

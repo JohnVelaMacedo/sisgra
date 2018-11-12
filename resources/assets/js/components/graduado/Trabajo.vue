@@ -102,10 +102,11 @@ export default {
             this.$Progress.start();
             axios.get('entidad')
                 .then(data => {
+                    console.log(data);
                     this.rubro = data.data.rubro;
                     this.sector = data.data.sector;
                     this.user = data.data.user;
-                    if (data.data.data.length != 0) {
+                    if (data.data.data != null) {
                         this.entidad = data.data.data[0];
                         this.haveData = true;
                         this.data = true;

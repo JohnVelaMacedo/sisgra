@@ -500,10 +500,10 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="telefono">Telefono:</label>
-                                        <input type="text" class="form-control" name="telefono" 
-                                            id="telefono" required v-model="entidadAdd.telefono" :class="{'error': errors.has('telefono')}" 
+                                        <input type="text" class="form-control" name="telefonoE" 
+                                            id="telefonoE" required v-model="entidadAdd.telefono" :class="{'error': errors.has('telefonoE')}" 
                                             placeholder="Ingrese telefono de la empresa" v-validate="'required|numeric|max:10'">
-                                        <span v-if="errors.has('telefono')" class="errorSpan">{{ errors.first('telefono') }}</span>
+                                        <span v-if="errors.has('telefonoE')" class="errorSpan">{{ errors.first('telefonoE') }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -840,8 +840,8 @@ export default {
                 }); 
         },
         agregarGraduado() {
-            this.$validator.validateAll().then(res => {
-                if (res) {
+            // this.$validator.validateAll().then(res => {
+            //     if (res) {
                     axios.post(`graduado`, {
                         graduadoIn: this.graduadoIn,
                         entidadAdd:this.entidadAdd,
@@ -876,16 +876,16 @@ export default {
                         });
                         console.log(`Error: ${error}`);
                     });
-                } else {
-                    swal({
-                        position: 'top-end',
-                        type: 'error',
-                        title: 'Por favor corrija los errores',
-                        showConfirmButton: false,
-                        timer: 2000
-                    });
-                }
-            });
+                // } else {
+                //     swal({
+                //         position: 'top-end',
+                //         type: 'error',
+                //         title: 'Por favor corrija los errores',
+                //         showConfirmButton: false,
+                //         timer: 2000
+                //     });
+                // }
+            // });
         },
         editProfile() {
                     axios.put(`updateGraduadoEscuela`, {
