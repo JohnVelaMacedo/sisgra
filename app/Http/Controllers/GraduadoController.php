@@ -11,6 +11,8 @@ use App\Discapacidad;
 use App\Facultad;
 use App\GradoGraduado;
 use App\User;
+use App\EmpresaGraduado;
+use App\Entidad;
 use App\EscuelaProfesional;
 
 class GraduadoController extends Controller
@@ -62,7 +64,7 @@ class GraduadoController extends Controller
         $escuela = EscuelaProfesional::all();
         $estado_civil = EstadoCivil::all();
         $discapacidad = Discapacidad::all();
-
+        
         $resultado = \DB::select("SELECT g.DNI, g.Nombre, g.Telefono, g.Correo, g.AnioNacimiento, g.Genero, p.idPais, p.Nombre as 'Pais', 
                                 de.Nombre AS 'Departamento', de.DepartamentoEstado, g.DistritoCiudad, g.Dirección, 
                                 ec.descripcion AS 'Estado_Civil', ec.id AS 'idEstadoCivil' ,g.CantHijos, d.descripcion AS 'Discapacidad', 
@@ -84,6 +86,13 @@ class GraduadoController extends Controller
     {
         $user = \Auth::user();
         $user = $user->id;
+        $entidad = \DB::select("SELECT e.descripcion, r.descripcion as 'Rubro', e.telefono, e.web, s.descripcion as 'Sector' 
+                                FROM empresa_graduado eg 
+                                INNER JOIN entidad e ON e.id = eg.idEntidad 
+                                INNER JOIN rubro r ON r.id = e.idRubro 
+                                INNER JOIN sector s ON s.id = e.idSector 
+                                WHERE eg.idGraduado = ?", [$id]);
+                                    
         $resultado = \DB::select("SELECT g.DNI, g.Nombre, g.Telefono, g.Correo, g.AnioNacimiento, g.Genero, p.idPais, p.Nombre as Pais, 
                         de.Nombre AS Departamento, de.DepartamentoEstado, g.DistritoCiudad, g.Dirección, 
                         ec.descripcion AS 'Estado_Civil', ec.id AS 'idEstadoCivil' ,g.CantHijos, d.descripcion AS Discapacidad, 
@@ -97,7 +106,7 @@ class GraduadoController extends Controller
                         INNER JOIN facultad f ON f.id = g.Facultad
                         INNER JOIN escuelaprofesional ep ON ep.idEscuela = g.Escuela
                         WHERE DNI = ?", [$id]);
-        return compact('resultado','user');
+        return compact('resultado','user','entidad');
     }
     public function getHojaVida()
     {
@@ -173,6 +182,7 @@ class GraduadoController extends Controller
         } else {
             $grado_graduado->Grado = 1;
         }
+        
         $grado_graduado->idGraduado = $request['graduadoIn']['DNIIn'];
         $grado_graduado->anioGraduacion = $request['graduadoIn']['BachilleratoIn'];
 
@@ -186,7 +196,21 @@ class GraduadoController extends Controller
 
         $graduado->save();
         $grado_graduado->save();
-        $user->save();
+        $user->save(); 
+
+        $entidad = Entidad::updateOrCreate(
+            ['id' => $request['entidadAdd']['id']],
+            [
+                'descripcion' => $request['entidadAdd']['descripcion'],
+                'idRubro' => $request['entidadAdd']['idRubro'],
+                'telefono' => $request['entidadAdd']['telefono'],
+                'web' => $request['entidadAdd']['web'],
+                'idSector' => $request['entidadAdd']['idSector']
+            ]
+        );
+        
+        $empresa = EmpresaGraduado::updateOrCreate(['idGraduado' => $request['graduadoIn']['DNIIn'], 'idEntidad' => $entidad->id]);
+
         
         if($graduado && $grado_graduado) {
             return 'ambos correcto';
@@ -244,6 +268,19 @@ class GraduadoController extends Controller
                         $request->graduado['egreso'], $request->graduado['AnioBachiller'], $request->graduado['AnioTitulo'],
                         $request->graduado['DNI']
                 ]);
+                    
+                $entidad = Entidad::updateOrCreate(
+                    ['id' => $request['entidadEdit']['id']],
+                    [
+                        'descripcion' => $request['entidadEdit']['descripcion'],
+                        'idRubro' => $request['entidadEdit']['idRubro'],
+                        'telefono' => $request['entidadEdit']['telefono'],
+                        'web' => $request['entidadEdit']['web'],
+                        'idSector' => $request['entidadEdit']['idSector']
+                    ]
+                );
+                
+                $empresa = EmpresaGraduado::updateOrCreate(['idGraduado' => $request->graduado['DNI'], 'idEntidad' => $entidad->id]);
         
         // Actualizando GradoGraduado
         if (strlen($request->graduado['AnioTitulo']) > 0) {
@@ -258,7 +295,7 @@ class GraduadoController extends Controller
             $request->graduado['DNI']
         ]);
 
-        if($graduado) {
+        if($graduado || $entidad) {
             return 'correcto';
         }
         return 'error';

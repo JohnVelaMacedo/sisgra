@@ -6,7 +6,13 @@ use Illuminate\Http\Request;
 use App\Persona;
 use App\Graduado;
 use App\EscuelaProfesional;
+<<<<<<< HEAD
 use App\User;
+=======
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\graduados2Import;
+
+>>>>>>> origin/master
 class escuelaController extends Controller
 {
     /**
@@ -19,12 +25,13 @@ class escuelaController extends Controller
         $user = \Auth::user();
         $user = $user->id;
         $persona=Persona::where('DNI',$user)->first();
+        $escuelaDetalle=EscuelaProfesional::where('idEscuela',$persona->idEscuela)->first();
 
         // Obteniendo el tipo de Estado Civil
         $graduadoEscuela = Graduado::where('Escuela', $persona->idEscuela)->get();
 
         // return view('graduado.index', compact('graduado', 'discapacidad', 'escuela', 'facultad', 'departamento', 'estado_civil'));
-        return compact('persona','graduadoEscuela');
+        return compact('escuelaDetalle','persona','graduadoEscuela');
     }
 
     /**
@@ -32,7 +39,7 @@ class escuelaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create() 
     {
         //
     }
@@ -45,7 +52,15 @@ class escuelaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->hasFile('excelG')){
+            $path=$request->file('excelG')->getRealPath();
+            Excel::import(new graduados2Import, request()->file('excelG'));
+            return 'success'; 
+        }else{
+            return "No! It's not a File";
+        }
+
+        
     }
 
     /**

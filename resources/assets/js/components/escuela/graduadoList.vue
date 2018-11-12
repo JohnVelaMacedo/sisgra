@@ -6,12 +6,12 @@
                             <div class="header">
                                 <div class="row">
                                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                                        <button class="btn btn-primary" @click="op=true;op0=false">Agregar</button>
+                                        <button class="btn btn-primary" @click="op=true;op0=false;getRubroSector()">Agregar</button>
                                         <!-- <router-link to="/foo" tag="button">foo</router-link> -->
                                     </div>
                                     <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-4 col-lg-4">
-                                        <h4 class="title">Lista Graduados</h4>
-                                        <p class="category">Graduados de le escuela</p>
+                                        <center><h4 class="title">{{detalleEscuela.Nombre}}</h4></center>
+                                        <center><p class="category">Lista de graduados</p></center>
                                     </div>
                                 </div>
                             </div>
@@ -212,9 +212,56 @@
                                         <span v-if="errors.has('titulacion')" class="errorSpan">{{ errors.first('titulacion') }}</span>
                                     </div>
                                 </div>
+                                <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="descripcion">Nombre de la Empresa:</label>
+                                        <input type="text" class="form-control" required name="descripcion" 
+                                            v-model="entidadEdit.descripcion" id="descripcion" :class="{'error': errors.has('descripcion')}" 
+                                            placeholder="Ingrese Nombre de la Empresa">
+                                        <span v-if="errors.has('descripcion')" class="errorSpan">{{ errors.first('descripcion') }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="web">Web:</label>
+                                        <input type="text" class="form-control" name="web" 
+                                            id="web" v-model="entidadEdit.web" :class="{'error': errors.has('web')}" 
+                                            v-validate="'url:require_protocol'" placeholder="Ingrese url de su empresa">
+                                        <span v-if="errors.has('web')" class="errorSpan">{{ errors.first('web') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="rubro">Rubro:</label>
+                                        <select name="rubro" required id="rubro" class="form-control" v-model="entidadEdit.idRubro">
+                                            <option v-for="r in rubroEdit" :value="r.id" :key="r.id">{{ r.descripcion }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="sector">Sector:</label>
+                                        <select name="sector" required id="sector" class="form-control" v-model="entidadEdit.idSector">
+                                            <option v-for="s in sectorEdit" :value="s.id" :key="s.id">{{ s.descripcion }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="telefono">Telefono:</label>
+                                        <input type="text" class="form-control" name="telefono" 
+                                            id="telefono" required v-model="entidadEdit.telefono" :class="{'error': errors.has('telefono')}" 
+                                            placeholder="Ingrese telefono de la empresa" v-validate="'required|numeric|max:10'">
+                                        <span v-if="errors.has('telefono')" class="errorSpan">{{ errors.first('telefono') }}</span>
+                                    </div>
+                                </div>
+                            </div>
                             </div>
 	                        <input type="submit" :disabled="errors.any()" class="btn btn-info btn-fill pull-right">
-                            <button class="btn btn-primary btn-fill pull-left" @click="submitted = false" v-on:click="op1=false;op0=true">Cancelar</button>
+                            <button type="button" class="btn btn-primary btn-fill pull-left" v-on:click="op1=false;op0=true">Cancelar</button>
 	                        <div class="clearfix"></div>
 	                    </form>
                         
@@ -222,9 +269,6 @@
 	            </div>
 	         </div>
 	    	</div>
-            <!-- <pre>
-                {{ graduadoIn }}
-            </pre> -->
 
             <div class="row" v-show="op">
 			 <div class="col-md-12">
@@ -414,6 +458,53 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="descripcion">Nombre de la Empresa:</label>
+                                        <input type="text" class="form-control" required name="descripcion" 
+                                            v-model="entidadAdd.descripcion" id="descripcion" :class="{'error': errors.has('descripcion')}" 
+                                            placeholder="Ingrese Nombre de la Empresa">
+                                        <span v-if="errors.has('descripcion')" class="errorSpan">{{ errors.first('descripcion') }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="web">Web:</label>
+                                        <input type="text" class="form-control" name="web" 
+                                            id="web" v-model="entidadAdd.web" :class="{'error': errors.has('web')}" 
+                                            v-validate="'url:require_protocol'" placeholder="Ingrese url de su empresa">
+                                        <span v-if="errors.has('web')" class="errorSpan">{{ errors.first('web') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="rubro">Rubro:</label>
+                                        <select name="rubro" required id="rubro" class="form-control" v-model="entidadAdd.idRubro">
+                                            <option v-for="r in rubro" :value="r.id" :key="r.id">{{ r.descripcion }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="sector">Sector:</label>
+                                        <select name="sector" required id="sector" class="form-control" v-model="entidadAdd.idSector">
+                                            <option v-for="s in sector" :value="s.id" :key="s.id">{{ s.descripcion }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="telefono">Telefono:</label>
+                                        <input type="text" class="form-control" name="telefono" 
+                                            id="telefono" required v-model="entidadAdd.telefono" :class="{'error': errors.has('telefono')}" 
+                                            placeholder="Ingrese telefono de la empresa" v-validate="'required|numeric|max:10'">
+                                        <span v-if="errors.has('telefono')" class="errorSpan">{{ errors.first('telefono') }}</span>
+                                    </div>
+                                </div>
+                            </div>
 	                        <input type="submit" :disabled="errors.any()" class="btn btn-info btn-fill pull-right">
                             <button type="button" class="btn btn-primary btn-fill pull-left" @click="submitted = false" v-on:click="op=false;op0=true">Cancelar</button>
 	                        <div class="clearfix"></div>
@@ -537,6 +628,29 @@ export default {
                 egreso: null,
                 }
             ],
+            entidad: [{
+                Rubro: null,
+                Sector: null,
+                descripcion: null,
+                telefono: null,
+                web: null
+            }],
+            entidadAdd: {
+                id: null,
+                descripcion: null,
+                idRubro: null,
+                telefono: null,
+                web: null,
+                idSector: null
+            },
+            entidadEdit: {
+                id: null,
+                descripcion: null,
+                idRubro: null,
+                telefono: null,
+                web: null,
+                idSector: null
+            },
             graduadoH: {
                 AnioBachiller: null,
                 AnioNacimiento: null,
@@ -613,6 +727,7 @@ export default {
             pais: [],
             facultad: [],
             escuela: [],
+            detalleEscuela: [],
             departamento: [],
             estado_civil: [],
             discapacidad: [],
@@ -638,7 +753,11 @@ export default {
                         },
                 sortable: ['DNI', 'Nombre','egreso'],
                 filterable: ['DNI', 'Nombre']
-                    }
+                    },
+            rubro: [ { id: null, descripcion: null } ],
+            sector: [ { id: null, descripcion: null } ],
+            rubroEdit: [ { id: null, descripcion: null } ],
+            sectorEdit: [ { id: null, descripcion: null } ]
         }
     },
     created() {
@@ -651,17 +770,29 @@ export default {
             axios.get('escuela')
                 .then(data => {
                    this.graduadoT=data.data.graduadoEscuela;
+                   this.detalleEscuela=data.data.escuelaDetalle;
                    this.graduadoT.forEach((element,i) => {
                        this.graduadoT[i].Acciones=this.graduadoT[i].DNI;
                    });
-                   console.log(data);
+                //    console.log(data);
                 }).catch(error => console.log('Ocurrio un error ' + error)); 
+        },
+        getRubroSector(){
+            axios.get('entidad')
+                .then(data => {
+                    this.rubro = data.data.rubro;
+                    this.sector = data.data.sector;
+                    //console.log(data);
+                }).catch(error => {
+                    this.$Progress.fail();
+                    console.log('Ocurrio un error ' + error);
+                });
         },
         getPersona()
 			{
 				axios.get('admin').then(dato => {
 					this.persona = dato.data.Persona[0];
-					console.log(this.persona);
+					//console.log(this.persona);
 				}).catch(error =>console.log(error))
             },
         getPaisDep()
@@ -688,19 +819,22 @@ export default {
             axios.get(`/get-graduado/${id}`)
                 .then(data => {
                     this.graduado = data.data.resultado[0];
-                    // this.pais = data.data.pais;
-                    // this.facultad = data.data.facultad;
-                    // this.escuela = data.data.escuela;
-                    // this.departamento = data.data.departamento;
-                    // this.estado_civil = data.data.estado_civil;
-                    // this.discapacidad = data.data.discapacidad;
                     this.user = data.data.user;
-                    // this.$Progress.finish();
-                    // console.log(data.data.resultado[0]);
-                    //console.log(this.graduado);
                 }).catch(error => {
                     console.log('Ocurrio un error ' + error);
                     this.$Progress.fail();
+                });
+                axios.get(`/get-entidad/${id}`)
+                .then(data => {
+                    this.rubroEdit = data.data.rubro;
+                    this.sectorEdit = data.data.sector;
+                    if (data.data.data.length != 0) {
+                        this.entidadEdit = data.data.data;
+                    }
+                    
+                }).catch(error => {
+                    this.$Progress.fail();
+                    console.log('Ocurrio un error ' + error);
                 }); 
         },
         agregarGraduado() {
@@ -708,9 +842,8 @@ export default {
                 if (res) {
                     axios.post(`graduado`, {
                         graduadoIn: this.graduadoIn,
-                        // user: this.user
+                        entidadAdd:this.entidadAdd,
                     }).then(data => {
-                        console.log(data);
                         if (data.data == 'ambos correcto') {
                             swal({
                                 position: 'top-end',
@@ -720,7 +853,7 @@ export default {
                                 timer: 2000
                             });
                             setTimeout(() => {
-                                this.$router.push('/home');
+                                location.reload();
                             }, 2500);
                         } else {
                             swal({
@@ -730,9 +863,6 @@ export default {
                                 showConfirmButton: false,
                                 timer: 2000
                             });
-                            // setTimeout(() => {
-                            //     this.$router.push('/ver-perfil');
-                            // }, 2500);
                         }
                     }).catch(error => {
                         swal({
@@ -758,6 +888,7 @@ export default {
         editProfile() {
                     axios.put(`graduado/${this.user}`, {
                         graduado: this.graduado,
+                        entidadEdit:this.entidadEdit,
                         user: this.user
                     }).then(data => {
                         if (data.data == 'correcto') {
@@ -769,8 +900,8 @@ export default {
                                 timer: 2000
                             });
                             setTimeout(() => {
-                                this.$router.push('/listAlumnos');
-                            }, 2500);
+                                location.reload();
+                            }, 1500);
                         } else {
                             swal({
                                 position: 'top-end',
@@ -779,9 +910,7 @@ export default {
                                 showConfirmButton: false,
                                 timer: 2000
                             });
-                            setTimeout(() => {
-                                this.$router.push('/listAlumnos');
-                            }, 2500);
+                            console.log(data);
                         }
                     }).catch(error => {
                         swal({
@@ -793,23 +922,14 @@ export default {
                         });
                         console.log(`Error: ${error}`);
                     });
-                
-            
         },
         viewGraduado(id){
             axios.get(`/get-graduado/${id}`)
                 .then(data => {
                     this.graduadoH = data.data.resultado[0];
-                    // this.pais = data.data.pais;
-                    // this.facultad = data.data.facultad;
-                    // this.escuela = data.data.escuela;
-                    // this.departamento = data.data.departamento;
-                    // this.estado_civil = data.data.estado_civil;
-                    // this.discapacidad = data.data.discapacidad;
+                    this.entidad = data.data.entidad[0];
                     this.user = data.data.user;
-                    // this.$Progress.finish();
-                    // console.log(data.data.resultado[0]);
-                    //console.log(this.graduado);
+                    console.log(data);
                     this.op0=false;
                     this.op2=true;
                 }).catch(error => {

@@ -22,11 +22,26 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Graduado
 Route::resource('/graduado', 'GraduadoController', [
     'except' => ['destroy', 'edit', 'show', 'create']
-    ])->middleware('guest');
+    ]);
 Route::resource('/escuela', 'escuelaController');
+Route::resource('/getSector', 'SectorController');
+Route::resource('/getRubro', 'RubroController');
 
 Route::get('/datos', 'GraduadoController@getDatos')->name('graduado.datos');
 Route::get('/get-graduado/{id}', 'GraduadoController@getGraduado')->name('graduado.getGraduado');
+
+Route::get('/get-entidad/{id}', 'EntidadController@getEntidad')->name('entidad.getEntidad');
+
+Route::post('/up-graduado', 'escuelaController@store')->name('graduado.upGraduado');
+
+Route::post('/agregarSector', 'SectorController@store')->name('sector.agregarSector');
+Route::post('/agregarRubro', 'RubroController@store')->name('rubro.agregarRubro');
+
+Route::post('/actualizarSector', 'SectorController@edit')->name('sector.editarSector');
+Route::post('/actualizarRubro', 'RubroController@edit')->name('rubro.editarRubro');
+
+Route::get('/eliminarSector/{id}', 'SectorController@destroy')->name('sector.deleteSector');
+Route::get('/eliminarRubro/{id}', 'RubroController@destroy')->name('rubro.deleteRubro');
 
 Route::resource('/escuela', 'escuelaController');
 
