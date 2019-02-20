@@ -93,8 +93,8 @@ body{
     <h2>Lista De Graduados General</h2>
     
     <hr>
-    <table class="table table-striped">
-     <tr class="tr" align="center">
+    <table class="table table-striped" style="font-size: 12px!important">
+     <tr class="tr" align="center" style="background-color: #C4BEBD!important">
         <td class="td">Año Bachiller</td>
         <td class="td">Facultad</td>
         <td class="td">Escuela</td>
@@ -103,10 +103,10 @@ body{
      </tr>
      @foreach ($Reporte as $report)
         <tr>
-            <td>{{$report->bach}}</td>
-            <td>{{$report->facu}}</td>
-            <td>{{$report->esc}}</td>
-            <td>{{$report->cant}}</td>
+            <td>{{$report->AnioBachiller}}</td>
+            <td>{{$report->facultad}}</td>
+            <td>{{$report->escuela}}</td>
+            <td>{{$report->cantidad}}</td>
         </tr>
      @endforeach     
     </table>

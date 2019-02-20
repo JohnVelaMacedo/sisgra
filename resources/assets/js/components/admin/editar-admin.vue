@@ -5,7 +5,7 @@
 			 <div class="col-md-12">
 	            <div class="card">
 	                <div class="header">
-	                    <h4 class="title">Agregar Nuevo Graduado</h4>
+	                    <h4 class="title">Editar Datos</h4>
 	                </div>
 	                <div class="content">
 	                    <form action="controlador/agregarGraduado.php" method="POST">
@@ -86,7 +86,7 @@
 			getPersona()
 			{
 				axios.get('admin').then(dato => {
-					this.persona = dato.data.Persona[0];
+					this.persona = dato.data.persona;
 					console.log(this.persona);
 				}).catch(error =>console.log(error))
 			}

@@ -15,10 +15,10 @@ class ReporteGeneral implements FromArray
         foreach ($resultado as $result) 
         {
             $resultadoArray[] = array(
-                'Bachiller' => $result->bach,
-                'Facultad' => $result->facu,
-                'Escuela' => $result->esc,
-                'Cantidad' => $result->cant
+                'Bachiller' => $result->AnioBachiller,
+                'Facultad' => $result->facultad,
+                'Escuela' => $result->escuela,
+                'Cantidad' => $result->cantidad
             );
         } 
         return $resultadoArray;

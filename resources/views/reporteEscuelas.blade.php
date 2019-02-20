@@ -9,7 +9,8 @@
     
 </head>
 <?php
-$Reporte = DB::select("CALL `SP_MostrarTodos`()");
+// var_dump($resultado);
+
 ?>
 <style>
 body{
@@ -60,7 +61,7 @@ body{
 
 .table.table-striped tbody tr td a {
     color: #3c2f17;
-    font-size: 12px;
+    font-size: 4px;
     text-decoration:none;
   font-weight:500;
 }
@@ -88,28 +89,51 @@ body{
 </style>
 <body>
     <center>
-    <h1>Universidad Nacional de ucayali</h1>
-    <p><img src="assets/img/unu.png" height="80" width="60"></p>
-    <h2>Lista De Egresados Detallado</h2>
-    
+    <h2>Lista De Graduados {{$fac}}</h2>
     <hr>
-    <table class="table table-striped" style="font-size: 12px!important;">
-     <tr class="tr" align="center;background-color: #C4BEBD!important" >
-        <td class="td">Facultad</td>
+    
+    <table class="table table-striped" style="font-size:10px;">
+     <tr class="tr" align="center" style="background-color: #C4BEBD">
         <td class="td">Escuela</td>
-        <td class="td">Grado</td>
+        <td class="td">DNI</td>
         <td class="td">Nombres</td>
+        <td class="td">Telefono</td>
+        {{-- <td class="td">Correo</td> --}}
+        <td class="td">Pais Residencia</td>
+        <td class="td">Departamento</td>
+        <td class="td">Distrito</td>
+        <td class="td">Direccion</td>
+        <td class="td">Estado Civil</td>
+        <td class="td">N° Hijos</td>
+        <td class="td">Discapacidad</td>
+        <td class="td">Ingreso</td>
+        <td class="td">Egreso</td>
         <td class="td">Año Bachiller</td>
+        <td class="td">Año Titulo</td>
      </tr>
-     @foreach ($Reporte as $report)
+     @foreach ($resultado as $report)
         <tr>
-            <td>{{$report->facu}}</td>
             <td>{{$report->escuela}}</td>
-            <td>{{$report->Descripcion}}</td>
+            <td>{{$report->DNI}}</td>
             <td>{{$report->Nombre}}</td>
+            <td>{{$report->Telefono}}</td>
+            {{-- <td>{{$report->Correo}}</td> --}}
+            <td>{{$report->pais}}</td>
+            <td>{{$report->departamento}}</td>
+            <td>{{$report->DistritoCiudad}}</td>
+            <td>{{$report->Dirección}}</td>
+            <td>{{$report->estadocivil}}</td>
+            <td>{{$report->CantHijos}}</td>
+            <td>{{$report->discapacidad}}</td>
+            <td>{{$report->Ingreso}}</td>
+            <td>{{$report->egreso}}</td>
             <td>{{$report->AnioBachiller}}</td>
+            <td>{{$report->AnioTitulo}}</td>
         </tr>
-     @endforeach     
+     @endforeach 
+        <tr style="text-align: right!important;font-size: 14px!important">
+            <td colspan="15"><b>Cantidad de Graduados: {{count($resultado)}}</b></td>    
+        </tr>   
     </table>
     </center>
 </body>

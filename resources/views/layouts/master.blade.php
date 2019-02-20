@@ -37,12 +37,12 @@
                                     <p>Dashboard</p>
                                 </router-link>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <router-link to="/editar-admin">
                                     <i class="pe-7s-user"></i>
                                     <p>Editar Perfil</p>
                                 </router-link>
-                            </li>
+                            </li> --}}
                             <li>
                                 <router-link to="/AgregarFacultades">
                                     <i class="pe-7s-user"></i>
@@ -69,28 +69,28 @@
                                     <p>Dashboard</p>
                                 </router-link>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <router-link to="/editar-jefe">
                                     <i class="pe-7s-user"></i>
                                     <p>Editar Perfil</p>
                                 </router-link>
-                            </li>
+                            </li> --}}
                             <li>
                                 <router-link to="/AgregarEscuela">
                                     <i class="pe-7s-user"></i>
                                     <p>Agregar</p>
                                 </router-link>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <router-link to="/ReporteFacultad">
                                     <i class="pe-7s-look"></i>
                                     <p>Reporte por Facultad</p>
                                 </router-link>
-                            </li>
+                            </li> --}}
                             <li>
                                 <router-link to="/ReporteEscuela">
                                     <i class="pe-7s-look"></i>
-                                    <p>Reporte Detallado</p>
+                                    <p>Reportes</p>
                                 </router-link>
                             </li>
                             @break

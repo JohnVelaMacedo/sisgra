@@ -100,7 +100,7 @@ class ReporteGraduados extends Controller
 
         $pdf = PDF::loadView('reportegeneralpdf', compact('query'));
 
-        return $pdf->download('Reporte.pdf');
+        return $pdf->stream('Reporte.pdf');
     }
 
     public function getDatos()

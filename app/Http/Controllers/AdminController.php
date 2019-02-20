@@ -19,8 +19,11 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $Persona = Persona::all();
-        return compact('Persona');
+        $user = \Auth::user();
+        $user = $user->user;    
+        // $persona = Persona::where('DNI', '$user')->get();
+        $persona = \DB::select("SELECT * FROM `persona` WHERE DNI = '$user'");
+        return compact('persona');
     }
 
     /**

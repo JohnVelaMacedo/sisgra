@@ -47,7 +47,7 @@ class ReporteGeneral extends Controller
 
         $pdf = PDF::loadView('reportegraduadospdf', compact('query'));
 
-        return $pdf->download('listado.pdf');
+        return $pdf->stream('listado.pdf');
     }
     /**
      * Store a newly created resource in storage.

@@ -125,19 +125,19 @@ export default {
         return {
             reporte: [{
                 id: null,
-				nombre: null,
+				facultad: null,
 				encargado: null
             }],
-            columns: ["id","nombre","encargado"],
+            columns: ["id","facultad","encargado"],
             options: {
 				headings:
 				{
 					id: "id",
-					nombre: "Facultad",
+					facultad: "Facultad",
 					encargado: "Encargado",
 				},
-				sortable: ["id","Nombre"],
-				filterable: ["id","nombre","encargado"]
+				sortable: ["id","facultad"],
+				filterable: ["id","facultad","encargado"]
 			},
 			facultad: [],
 			facu:null,
@@ -175,8 +175,23 @@ export default {
 				facu:this.facu
 			}).then(data=>{
 				console.log(data);
+				swal({
+					type: 'success',
+					title: 'Datos ingresados correctamente',
+					showConfirmButton: false,
+					timer: 2000
+				});
+				setTimeout(() => {
+					location.reload();
+				}, 1500);
 			}).catch(error=>{
 				console.log(error);
+				swal({
+					type: 'error',
+					title: 'Error',
+					text:  "Verifique ingreso de datos",
+					showConfirmButton: true,
+				});
 			})
 
 		},
@@ -186,8 +201,23 @@ export default {
 				persona:this.persona
 			}).then(data=>{
 				console.log(data);
+				swal({
+					type: 'success',
+					title: 'Datos ingresados correctamente',
+					showConfirmButton: false,
+					timer: 2000
+				});
+				setTimeout(() => {
+					location.reload();
+				}, 1500);
 			}).catch(error=>{
-				console.log(error);	
+				console.log(error);
+				swal({
+					type: 'error',
+					title: 'Error',
+					text:  "Verifique ingreso de datos",
+					showConfirmButton: true,
+				});
 			})
 		}
     }

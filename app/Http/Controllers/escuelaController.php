@@ -11,7 +11,6 @@ use App\EscuelaProfesional;
 use App\User;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\graduados2Import;
-
 class escuelaController extends Controller
 {
     /**
@@ -156,13 +155,13 @@ class escuelaController extends Controller
     public function getDatos()
     {
         $user       = \Auth::user();
-        $user       = $user->id;
-        $encargado  = \DB::select('CALL `SP_EncargadoEscuela`(?)',[
-            $user
-        ]);
-        $escuela    = \DB::select('CALL `SP_Escuelas`(?)',[
-            $user
-        ]);
+        $user       = $user->user;
+        $encargado  = \DB::select("SELECT p.DNI as id, e.Nombre as escuela, concat_ws(' ',p.Nombre,p.Apellidos) as encargado  FROM persona p 
+        JOIN escuelaprofesional e ON p.idFacultad=e.idFacultad 
+        WHERE p.DNI='$user'");
+        $escuela    = \DB::select("SELECT e.idEscuela as id, e.Nombre as escuela FROM escuelaprofesional e 
+        JOIN persona p ON e.idFacultad=p.idFacultad
+        WHERE p.DNI='$user'");
         return compact('encargado','escuela');
     }
     public function ingresarEscuela(Request $request)
@@ -187,8 +186,65 @@ class escuelaController extends Controller
     public function idFacultad()
     {
         $user       = \Auth::user();
-        $user       = $user->id;
-        $var = \DB::select('CALL `SP_idFacultad`(?)',[$user]);
+        $user       = $user->user;
+        $var = \DB::select("SELECT p.`idFacultad` FROM persona p WHERE p.dni='$user'");
         return $var;
+    }
+    public function getEscuelas()
+    {
+        $personas   = $this->idFacultad();
+        foreach ($personas as $key) {
+            $id = $key->idFacultad;
+        }
+        // $escuelas = EscuelaProfesional::all()->where('idFacultad',$id);
+        $escuelas = \DB::select("SELECT g.`DNI`,g.`Nombre`,g.`Telefono`,g.`Correo`,e.Nombre escuela,g.`Ingreso`,g.`egreso`,g.`AnioBachiller`,g.`AnioTitulo` FROM graduado g
+        JOIN escuelaprofesional e ON e.idEscuela=g.Escuela
+        WHERE g.Facultad=$id");
+        return compact('escuelas');
+    }
+    public function addEncargado(Request $request)
+    {
+        $persona    = new Persona();
+        $user       = new User();
+        $idFacultad     = $this->idFacultad();
+        foreach ($idFacultad as $fac) {
+            $var = $fac->idFacultad;
+        }
+        $persona->DNI           =   $request->persona['dni'];
+        $persona->Nombre        =   ucwords($request->persona['nombre']);
+        $persona->Apellidos     =   ucwords($request->persona['ape']);
+        $persona->Telefono      =   $request->persona['cel'];
+        $persona->Direccion     =   ucwords($request->persona['dir']);
+        $persona->idFacultad    =   $var;
+        $persona->idEscuela     =   $request->persona['idesc'];
+        $persona->Correo        =   $request->persona['correo'];
+        $persona->Estado        =   1;
+        $user->id               =   $request->persona['dni'];
+        $user->user             =   $request->persona['dni'];
+        $user->password         =   bcrypt($request->persona['dni']);   
+        $user->tipo             =   3;
+        $user->estado           =   1; 
+        $persona->save();
+        $user->save();
+        return 'ok';
+    }
+    public function getEncargado()
+    {
+        $personas   = $this->idFacultad();    
+        foreach ($personas as $key) {
+            $id = $key->idFacultad;
+        }
+        $escuelas = EscuelaProfesional::all()->where('idFacultad',$id);
+        $encargados = \DB::select("SELECT p.DNI as ID, concat_ws(' ',p.Nombre,p.Apellidos) as encargado, e.`Nombre` as escuela FROM escuelaprofesional e 
+        JOIN persona p ON e.idFacultad=p.idFacultad
+        WHERE (NOT p.idEscuela = 0) AND p.idFacultad=$id");
+        return compact('escuelas','encargados');
+    }
+    public function alterTable()
+    {
+        $xd = \Schema::table('persona', function (Blueprint $table) {
+            $table->string('Nombre', 50)->change();
+        });
+        return compact('xd');
     }
 }

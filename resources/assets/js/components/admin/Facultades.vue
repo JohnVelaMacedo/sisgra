@@ -23,23 +23,23 @@ export default {
     data() {
         return {
             reporte: [{
-                bach: null,
-                facu: null,
-                esc: null,
-                cant: null,
+                Aniobachiller: null,
+                facultad: null,
+                escuela: null,
+                cantidad: null,
                 
             }],
-            columns: ["bach","facu","esc","cant"],
+            columns: ["AnioBachiller","facultad","escuela","cantidad"],
             options: {
                     headings:
                     {
-                        bach: "Año de Bachiller",
-                        facu: "Facultad",
-                        esc:  "Escuela",
-                        cant: "Cantidad"
+                        Aniobachiller: "Año de Bachiller",
+                        facultad: "Facultad",
+                        escuela: "Escuela",
+                        cantidad: "Cantidad"
                     },
-                    sortable: ["bach","facu","esc","cant"],
-                    filterable: ["bach","facu","esc","cant"]
+                    sortable: ["AnioBachiller","facultad","escuela","cantidad"],
+                    filterable: ["AnioBachiller","facultad","escuela","cantidad"]
                 } 
         }
     },

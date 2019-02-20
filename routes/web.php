@@ -49,12 +49,12 @@ Route::resource('/escuela', 'escuelaController');
 Route::get('ejemploFormato', 'ReporteEscuela@excelEjemplo');
 Route::get('excelEscuela', 'ReporteEscuela@excel');
 Route::get('reporteEscuelapdf', 'ReporteEscuela@pdf');
-
+Route::get('escueladatos', 'escuelaController@getEscuelas');
 Route::get('/datos', 'GraduadoController@getDatos')->name('graduado.datos');
 Route::get('/hoja-vida', 'GraduadoController@getHojaVida')->name('graduado.hoja_vida');
 
 // Admin
-Route::resource('/admin', 'AdminController')->middleware('admin');
+Route::get('/admin', 'AdminController@index')->middleware('admin');
 Route::resource('/facultades', 'ReporteGraduados');
 Route::get('/agregarfacultad', 'FacultadController@getDatos');
 Route::resource('/facultad', 'FacultadController');
@@ -69,7 +69,11 @@ Route::get('reportegeneralpdf', 'ReporteGraduados@pdf');
 //jefe de departamento
 Route::get('agregarescuela', 'escuelacontroller@getDatos');
 Route::post('addescuela', 'escuelacontroller@ingresarEscuela');
-
+Route::post('addEncargado', 'escuelacontroller@addEncargado');
+Route::get('getEncargadosEscuela', 'escuelacontroller@getEncargado');
+Route::post('/alterTable', 'escuelacontroller@alterTable');
+Route::get('reporteFacultadexcel', 'FacultadController@getReporte');
+Route::get('reporteEscuelapdf', 'FacultadController@escuelaspdf');
 // Verificar el logueo
 Route::resource('/logueo', 'LogueoController', [
     'except' => ['create', 'show', 'edit', 'update', 'destroy']

@@ -67,12 +67,18 @@
 	                                    <input type="text" class="form-control" v-model="persona.dir"  maxlength="100">
 	                                </div>
 	                            </div>
+								<!-- <div class="col-md-5">
+	                                <div class="form-group">
+	                                    <label>Alter table</label>
+	                                    <input type="text" class="form-control" @keyup="alter()">
+	                                </div>
+	                            </div> -->
 								<div class="col-md-4">
 	                                <div class="form-group">
 	                                    <label>Escuela</label>
-	                                    <select v-model="persona.idfacu" class="form-control">
-											<option v-for="e in escuela" :key="e.id" :value="e.id">
-												{{ e.nombre }}
+	                                    <select v-model="persona.idesc" class="form-control">
+											<option v-for="e in escuela" :key="e.idEscuela" :value="e.idEscuela">
+												{{ e.Nombre }}
 											</option>
 										</select>
 	                                </div>
@@ -102,7 +108,7 @@
 
 							<div class="card">
 								<div class="header text-center">
-									<h4 class="title"><b>Lista General de Escuelas</b></h4>
+									<h4 class="title"><b>Directores de Escuela</b></h4>
 									<p class="category"></p>
 								</div>
 								
@@ -124,20 +130,20 @@ export default {
     data() {
         return {
             reporte: [{
-                id: null,
-				nombre: null,
+                ID: null,
+				escuela: null,
 				encargado: null
             }],
-            columns: ["id","nombre","encargado"],
+            columns: ["ID","escuela","encargado"],
             options: {
 				headings:
 				{
-					id: "id",
-					nombre: "Escuela",
+					ID: "ID",
+					escuela: "Escuela",
 					encargado: "Encargado",
 				},
-				sortable: ["id","Nombre"],
-				filterable: ["id","nombre","encargado"]
+				sortable: ["ID","escuela","encargado"],
+				filterable: ["ID","escuela","encargado"]
 			},
 			escuela: [],
 			facu:null,
@@ -147,7 +153,7 @@ export default {
 				ape:null,
 				cel:null,
 				dir:null,
-				idfacu:null,
+				idesc:null,
 				correo:null
 			}
         }
@@ -158,10 +164,10 @@ export default {
     methods: {
         getData() {
             this.$Progress.start();
-            axios.get('agregarescuela')
+            axios.get('getEncargadosEscuela')
                 .then(data => {
-                    this.reporte = data.data.encargado;
-                    this.escuela = data.data.escuela;
+                    this.reporte = data.data.encargados;
+                    this.escuela = data.data.escuelas;
 					this.$Progress.finish();
 					console.log(data);
                 }).catch(error => {
@@ -175,21 +181,52 @@ export default {
 				facu:this.facu
 			}).then(data=>{
 				console.log(data);
+				swal({
+					type: 'success',
+					title: 'Datos ingresados correctamente',
+					showConfirmButton: false,
+					timer: 2000
+				});
+				setTimeout(() => {
+					location.reload();
+				}, 1500);
 			}).catch(error=>{
 				console.log(error);
+				swal({
+					type: 'error',
+					title: 'Error',
+					text: 'Llene los campos obligatorios',
+					showConfirmButton: true,
+				});
 			})
 
 		},
 		registrar()
 		{
-			axios.post("persona",{
+			axios.post("addEncargado",{
 				persona:this.persona
 			}).then(data=>{
+				swal({
+					type: 'success',
+					title: 'Datos ingresados correctamente',
+					showConfirmButton: false,
+					timer: 2000
+				});
+				setTimeout(() => {
+					location.reload();
+				}, 1500);
 				console.log(data);
 			}).catch(error=>{
 				console.log(error);	
+				swal({
+					type: 'error',
+					title: 'Error',
+					text: 'Llene los campos obligatorios',
+					showConfirmButton: true,
+				});
 			})
-		}
+		},
+		
     }
 }
 
